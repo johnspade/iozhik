@@ -198,6 +198,21 @@ object TgBotApiScrapper extends IOApp {
       )
     }
       .toList
+    val inputMediaAliases = Set("InputPollMedia", "InputPollOptionMedia")
+    val allSumtyps = items.collect{ case e: Sumtyp => e }
+    val inputMediaSumtyp = allSumtyps.find(_.name == "InputMedia")
+    val mergedInputMediaItems = inputMediaSumtyp.map { im =>
+      val extraItems = allSumtyps
+        .filter(s => inputMediaAliases.contains(s.name))
+        .flatMap(_.items)
+        .filterNot(im.items.contains)
+        .distinct
+      im.copy(items = im.items ++ extraItems)
+    }
+    val resolvedSumtyps = allSumtyps.map { s =>
+      if (s.name == "InputMedia") mergedInputMediaItems.getOrElse(s)
+      else s
+    }.filterNot(s => inputMediaAliases.contains(s.name))
     val emap = (items.collect{
         case e: Entity => e
       }
@@ -213,8 +228,8 @@ object TgBotApiScrapper extends IOApp {
         e.name -> body
       }.toMap
     val inlines = Set("InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply")
-    val leaves = (items.collect{ case e: Sumtyp => e.items } ++ messageEntityParent.map(_.items)).flatten.toSet ++ inlines
-    val sumTypes = (items.collect{ case e: Sumtyp => e } ++ messageEntityParent)
+    val leaves = (resolvedSumtyps.map(_.items) ++ messageEntityParent.map(_.items)).flatten.toSet ++ inlines
+    val sumTypes = (resolvedSumtyps ++ messageEntityParent)
       .sortBy(_.name)
       .map { e =>
         val fields = genFields(e.table)
@@ -330,6 +345,9 @@ object TgBotApiScrapper extends IOApp {
           name == "chat_id" ||
           name == "sender_chat_id" ||
           name == "new_owner_chat_id" ||
+          name == "actor_chat_id" ||
+          name == "added_user_ids" ||
+          name == "from_chat_id" ||
           name == "amount" || name.toLowerCase().contains("amount") ||
           name == "send_date" ||
           name == "direct_messages_topic_id"
@@ -347,7 +365,9 @@ object TgBotApiScrapper extends IOApp {
             .replace("InputFile or String", "IFile")
             .replace("InputFile", "IFile")
             .replace("InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply", "KeyboardMarkup")
-            .replace("InputMediaAudio, InputMediaDocument, InputMediaPhoto and InputMediaVideo", "InputMedia")
+            .replace("InputMediaAudio, InputMediaDocument, InputMediaLivePhoto, InputMediaPhoto and InputMediaVideo", "InputMedia")
+            .replace("InputPollOptionMedia", "InputMedia")
+            .replace("InputPollMedia", "InputMedia")
         }
       }
 

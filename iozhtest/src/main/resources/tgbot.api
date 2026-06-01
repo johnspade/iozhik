@@ -40,8 +40,7 @@ namespace telegramium {
         reply interface to the user (act as if the user has selected the bot's message 
         and tapped 'Reply'). This can be extremely useful if you want to create 
         user-friendly step-by-step interfaces without having to sacrifice privacy mode. 
-        Not supported in channels and for messages sent on behalf of a Telegram Business 
-        account.  */
+        Not supported in channels and for messages sent on behalf of a user account.  */
       ForceReply {
         /* Shows reply interface to the user, as if they manually 
         selected the bot's message and tapped 'Reply' */
@@ -63,7 +62,7 @@ namespace telegramium {
         custom keyboards are displayed until a new keyboard is sent by a bot. An 
         exception is made for one-time keyboards that are hidden immediately after the 
         user presses a button (see ReplyKeyboardMarkup). Not supported in channels and 
-        for messages sent on behalf of a Telegram Business account.  */
+        for messages sent on behalf of a business account.  */
       ReplyKeyboardRemove {
         /* Requests clients to remove the custom keyboard (user will 
         not be able to summon this keyboard; if you want to hide the 
@@ -85,7 +84,7 @@ namespace telegramium {
     
       /* This object represents a custom keyboard with reply options (see Introduction 
         to bots for details and examples). Not supported in channels and for messages 
-        sent on behalf of a Telegram Business account.  */
+        sent on behalf of a business account.  */
       ReplyKeyboardMarkup {
         /* Array of button rows, each represented by an Array of 
         KeyboardButton objects */
@@ -197,7 +196,7 @@ namespace telegramium {
         intensity  : Int
         /* Optional. True, if the background fill must be applied only 
         to the pattern itself. All other pixels are black in this 
-        case. For dark themes only */
+        case. For dark themes only. */
         isInverted : Option[Boolean]
         /* Optional. True, if the background moves slightly when the 
         device is tilted */
@@ -247,9 +246,8 @@ namespace telegramium {
       BotCommandScopeChatAdministrators {
         type : "chat_administrators:3"
         /* Unique identifier for the target chat or username of the 
-        target supergroup (in the format &#064;supergroupusername). 
-        Channel direct messages chats and channel chats aren't 
-        supported. */
+        target supergroup in the format &#064;username. Channel 
+        direct messages chats and channel chats aren't supported. */
         chatId : ChatId
       }
              
@@ -258,9 +256,8 @@ namespace telegramium {
       BotCommandScopeChatMember {
         type : "chat_member:4"
         /* Unique identifier for the target chat or username of the 
-        target supergroup (in the format &#064;supergroupusername). 
-        Channel direct messages chats and channel chats aren't 
-        supported. */
+        target supergroup in the format &#064;username. Channel 
+        direct messages chats and channel chats aren't supported. */
         chatId : ChatId
         /* Unique identifier of the target user */
         userId : Long
@@ -270,9 +267,8 @@ namespace telegramium {
       BotCommandScopeChat {
         type : "chat:5"
         /* Unique identifier for the target chat or username of the 
-        target supergroup (in the format &#064;supergroupusername). 
-        Channel direct messages chats and channel chats aren't 
-        supported. */
+        target supergroup in the format &#064;username. Channel 
+        direct messages chats and channel chats aren't supported. */
         chatId : ChatId
       }
              
@@ -435,7 +431,7 @@ namespace telegramium {
         /* Information about the user */
         user      : User
         /* Date when restrictions will be lifted for this user; Unix 
-        time. If 0, then the user is banned forever */
+        time. If 0, then the user is banned forever. */
         untilDate : Long
       }
              
@@ -474,6 +470,8 @@ namespace telegramium {
         /* True, if the user is allowed to add web page previews to 
         their messages */
         canAddWebPagePreviews : Boolean
+        /* True, if the user is allowed to react to messages */
+        canReactToMessages    : Boolean
         /* True, if the user is allowed to edit their own tag */
         canEditTag            : Boolean
         /* True, if the user is allowed to change the chat title, 
@@ -487,7 +485,7 @@ namespace telegramium {
         /* True, if the user is allowed to create forum topics */
         canManageTopics       : Boolean
         /* Date when restrictions will be lifted for this user; Unix 
-        time. If 0, then the user is restricted forever */
+        time. If 0, then the user is restricted forever. */
         untilDate             : Long
       }
              
@@ -516,7 +514,7 @@ namespace telegramium {
         thumbnailUrl          : String
         /* Optional. MIME type of the thumbnail, must be one of 
         “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to 
-        “image/jpeg” */
+        “image/jpeg”. */
         thumbnailMimeType     : Option[String]
         /* Optional. Title for the result */
         title                 : Option[String]
@@ -615,7 +613,7 @@ namespace telegramium {
         /* Unique identifier for this result, 1-64 bytes */
         id                    : String
         /* A valid URL of the photo. Photo must be in JPEG format. 
-        Photo size must not exceed 5MB */
+        Photo size must not exceed 5MB. */
         photoUrl              : String
         /* URL of the thumbnail for the photo */
         thumbnailUrl          : String
@@ -786,7 +784,7 @@ namespace telegramium {
         thumbnailUrl          : String
         /* Optional. MIME type of the thumbnail, must be one of 
         “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to 
-        “image/jpeg” */
+        “image/jpeg”. */
         thumbnailMimeType     : Option[String]
         /* Optional. Title for the result */
         title                 : Option[String]
@@ -1084,8 +1082,8 @@ namespace telegramium {
         measured in meters; 0-1500 */
         horizontalAccuracy   : Option[Float]
         /* Optional. Period in seconds during which the location can 
-        be updated, should be between 60 and 86400, or 0x7FFFFFFF 
-        for live locations that can be edited indefinitely. */
+        be updated, must be between 60 and 86400, or 0x7FFFFFFF for 
+        live locations that can be edited indefinitely */
         livePeriod           : Option[Int]
         /* Optional. For live locations, a direction in which the user 
         is moving, in degrees. Must be between 1 and 360 if 
@@ -1141,10 +1139,22 @@ namespace telegramium {
           
     enum InputMedia {
     
+      /* Represents a location to be sent.  */
+      InputMediaLocation {
+        type : "location:0"
+        /* Latitude of the location */
+        latitude           : Float
+        /* Longitude of the location */
+        longitude          : Float
+        /* Optional. The radius of uncertainty for the location, 
+        measured in meters; 0-1500 */
+        horizontalAccuracy : Option[Float]
+      }
+             
       /* Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to 
         be sent.  */
       InputMediaAnimation {
-        type : "animation:0"
+        type : "animation:1"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1186,7 +1196,7 @@ namespace telegramium {
              
       /* Represents a photo to be sent.  */
       InputMediaPhoto {
-        type : "photo:1"
+        type : "photo:2"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1212,7 +1222,7 @@ namespace telegramium {
              
       /* Represents a video to be sent.  */
       InputMediaVideo {
-        type : "video:2"
+        type : "video:3"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1264,9 +1274,65 @@ namespace telegramium {
         hasSpoiler            : Option[Boolean]
       }
              
+      /* Represents a live photo to be sent.  */
+      InputMediaLivePhoto {
+        type : "live_photo:4"
+        /* Video of the live photo to send. Pass a file_id to send a 
+        file that exists on the Telegram servers (recommended) or 
+        pass “attach://<file_attach_name>” to upload a new one using 
+        multipart/form-data under <file_attach_name> name. Sending 
+        live photos by a URL is currently unsupported. */
+        media                 : IFile
+        /* The static photo to send. Pass a file_id to send a file 
+        that exists on the Telegram servers (recommended) or pass 
+        “attach://<file_attach_name>” to upload a new one using 
+        multipart/form-data under <file_attach_name> name. Sending 
+        live photos by a URL is currently unsupported. */
+        photo                 : IFile
+        /* Optional. Caption of the live photo to be sent, 0-1024 
+        characters after entities parsing */
+        caption               : Option[String]
+        /* Optional. Mode for parsing entities in the live photo 
+        caption. See formatting options for more details. */
+        parseMode             : Option[ParseMode]
+        /* Optional. List of special entities that appear in the 
+        caption, which can be specified instead of parse_mode */
+        captionEntities       : List[MessageEntity]
+        /* Optional. Pass True, if the caption must be shown above the 
+        message media */
+        showCaptionAboveMedia : Option[Boolean]
+        /* Optional. Pass True if the live photo needs to be covered 
+        with a spoiler animation */
+        hasSpoiler            : Option[Boolean]
+      }
+             
+      /* Represents a venue to be sent.  */
+      InputMediaVenue {
+        type : "venue:5"
+        /* Latitude of the location */
+        latitude        : Float
+        /* Longitude of the location */
+        longitude       : Float
+        /* Name of the venue */
+        title           : String
+        /* Address of the venue */
+        address         : String
+        /* Optional. Foursquare identifier of the venue */
+        foursquareId    : Option[String]
+        /* Optional. Foursquare type of the venue, if known. (For 
+        example, “arts_entertainment/default”, 
+        “arts_entertainment/aquarium” or “food/icecream”.) */
+        foursquareType  : Option[String]
+        /* Optional. Google Places identifier of the venue */
+        googlePlaceId   : Option[String]
+        /* Optional. Google Places type of the venue. (See supported 
+        types.) */
+        googlePlaceType : Option[String]
+      }
+             
       /* Represents a general file to be sent.  */
       InputMediaDocument {
-        type : "document:3"
+        type : "document:6"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1298,9 +1364,24 @@ namespace telegramium {
         disableContentTypeDetection : Option[Boolean]
       }
              
+      /* Represents a sticker file to be sent.  */
+      InputMediaSticker {
+        type : "sticker:7"
+        /* File to send. Pass a file_id to send a file that exists on 
+        the Telegram servers (recommended), pass an HTTP URL for 
+        Telegram to get a .WEBP sticker from the Internet, or pass 
+        “attach://<file_attach_name>” to upload a new .WEBP, .TGS, 
+        or .WEBM sticker using multipart/form-data under 
+        <file_attach_name> name. */
+        media : IFile
+        /* Optional. Emoji associated with the sticker; only for just 
+        uploaded stickers */
+        emoji : Option[String]
+      }
+             
       /* Represents an audio file to be treated as music to be sent.  */
       InputMediaAudio {
-        type : "audio:4"
+        type : "audio:8"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1467,8 +1548,8 @@ namespace telegramium {
         measured in meters; 0-1500 */
         horizontalAccuracy   : Option[Float]
         /* Optional. Period in seconds during which the location can 
-        be updated, should be between 60 and 86400, or 0x7FFFFFFF 
-        for live locations that can be edited indefinitely. */
+        be updated, must be between 60 and 86400, or 0x7FFFFFFF for 
+        live locations that can be edited indefinitely */
         livePeriod           : Option[Int]
         /* Optional. For live locations, a direction in which the user 
         is moving, in degrees. Must be between 1 and 360 if 
@@ -1510,9 +1591,26 @@ namespace telegramium {
         media : IFile
       }
              
+      /* The paid media to send is a live photo.  */
+      InputPaidMediaLivePhoto {
+        type : "live_photo:1"
+        /* Video of the live photo to send. Pass a file_id to send a 
+        file that exists on the Telegram servers (recommended) or 
+        pass “attach://<file_attach_name>” to upload a new one using 
+        multipart/form-data under <file_attach_name> name. Sending 
+        live photos by a URL is currently unsupported. */
+        media : IFile
+        /* The static photo to send. Pass a file_id to send a file 
+        that exists on the Telegram servers (recommended) or pass 
+        “attach://<file_attach_name>” to upload a new one using 
+        multipart/form-data under <file_attach_name> name. Sending 
+        live photos by a URL is currently unsupported. */
+        photo : IFile
+      }
+             
       /* The paid media to send is a video.  */
       InputPaidMediaVideo {
-        type : "video:1"
+        type : "video:2"
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
@@ -1622,7 +1720,7 @@ namespace telegramium {
         chat), the server might automatically schedule a message 
         instead of sending it immediately. In such cases, this field 
         will be 0 and the relevant message will be unusable until it 
-        is actually sent */
+        is actually sent. */
         messageId                     : Int
         /* Optional. Unique identifier of a message thread or forum 
         topic to which the message belongs; for supergroups and 
@@ -1634,7 +1732,7 @@ namespace telegramium {
         /* Optional. Sender of the message; may be empty for messages 
         sent to channels. For backward compatibility, if the message 
         was sent on behalf of a chat, the field contains a fake 
-        sender user in non-channel chats */
+        sender user in non-channel chats. */
         from                          : Option[User]
         /* Optional. Sender of the message when sent on behalf of a 
         chat. For example, the supergroup itself for messages sent 
@@ -1657,6 +1755,13 @@ namespace telegramium {
         /* Date the message was sent in Unix time. It is always a 
         positive number, representing a valid date. */
         date                          : Long
+        /* Optional. The unique identifier for the guest query. Use 
+        this identifier with the method answerGuestQuery to send a 
+        response message. If non-empty, the message belongs to the 
+        chat where the guest bot was summoned, which may not 
+        coincide with other existing bot chats sharing the same 
+        identifier. */
+        guestQueryId                  : Option[String]
         /* Optional. Unique identifier of the business connection from 
         which the message was received. If non-empty, the message 
         belongs to a chat of the corresponding business account that 
@@ -1695,6 +1800,12 @@ namespace telegramium {
         replyToPollOptionId           : Option[String]
         /* Optional. Bot through which the message was sent */
         viaBot                        : Option[User]
+        /* Optional. For a message sent by a guest bot, this is the 
+        user whose original message triggered the bot's response */
+        guestBotCallerUser            : Option[User]
+        /* Optional. For a message sent by a guest bot, this is the 
+        chat whose original message triggered the bot's response */
+        guestBotCallerChat            : Option[Chat]
         /* Optional. Date the message was last edited in Unix time */
         editDate                      : Option[Long]
         /* Optional. True, if the message can't be forwarded */
@@ -1737,7 +1848,7 @@ namespace telegramium {
         effectId                      : Option[String]
         /* Optional. Message is an animation, information about the 
         animation. For backward compatibility, when this field is 
-        set, the document field will also be set */
+        set, the document field will also be set. */
         animation                     : Option[Animation]
         /* Optional. Message is an audio file, information about the 
         file */
@@ -1745,6 +1856,10 @@ namespace telegramium {
         /* Optional. Message is a general file, information about the 
         file */
         document                      : Option[Document]
+        /* Optional. Message is a live photo, information about the 
+        live photo. For backward compatibility, when this field is 
+        set, the photo field will also be set. */
+        livePhoto                     : Option[LivePhoto]
         /* Optional. Message contains paid media; information about 
         the paid media */
         paidMedia                     : Option[PaidMediaInfo]
@@ -1790,7 +1905,7 @@ namespace telegramium {
         poll                          : Option[Poll]
         /* Optional. Message is a venue, information about the venue. 
         For backward compatibility, when this field is set, the 
-        location field will also be set */
+        location field will also be set. */
         venue                         : Option[Venue]
         /* Optional. Message is a shared location, information about 
         the location */
@@ -2036,7 +2151,7 @@ namespace telegramium {
         type : "custom_emoji:4"
         /* unique identifier of the custom emoji. Use 
         getCustomEmojiStickers to get full information about the 
-        sticker */
+        sticker. */
         customEmojiId : String
       }
              
@@ -2203,7 +2318,7 @@ namespace telegramium {
         transferStarCount : Option[Int]
         /* Optional. Point in time (Unix timestamp) when the gift can 
         be transferred. If it is in the past, then the gift can be 
-        transferred now */
+        transferred now. */
         nextTransferDate  : Option[Long]
       }
              
@@ -2250,7 +2365,7 @@ namespace telegramium {
         accounts only */
         isUpgradeSeparate       : Option[Boolean]
         /* Optional. Unique number reserved for this gift when 
-        upgraded. See the number field in UniqueGift */
+        upgraded. See the number field in UniqueGift. */
         uniqueGiftNumber        : Option[Int]
       }
              
@@ -2258,23 +2373,30 @@ namespace telegramium {
           
     enum PaidMedia {
     
+      /* The paid media is a live photo.  */
+      PaidMediaLivePhoto {
+        type : "live_photo:0"
+        /* The photo */
+        livePhoto : LivePhoto
+      }
+             
       /* The paid media is a video.  */
       PaidMediaVideo {
-        type : "video:0"
+        type : "video:1"
         /* The video */
         video : Video
       }
              
       /* The paid media is a photo.  */
       PaidMediaPhoto {
-        type : "photo:1"
+        type : "photo:2"
         /* The photo */
         photo : List[PhotoSize]
       }
              
       /* The paid media isn't available before the payment.  */
       PaidMediaPreview {
-        type : "preview:2"
+        type : "preview:3"
         /* Optional. Media width as defined by the sender */
         width    : Option[Int]
         /* Optional. Media height as defined by the sender */
@@ -2443,7 +2565,7 @@ namespace telegramium {
         "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", 
         "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", 
         "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", 
-        "🤷", "🤷‍♀", "😡" */
+        "🤷", "🤷‍♀", "😡". */
         emoji : String
       }
              
@@ -2739,12 +2861,22 @@ namespace telegramium {
       year  : Option[Int]
     }
            
+    /* This object describes the access settings of a bot.  */
+    BotAccessSettings {
+      /* True, if only selected users can access the bot. The bot's 
+      owner can always access it. */
+      isAccessRestricted : Boolean
+      /* Optional. The list of other users who have access to the 
+      bot if the access is restricted */
+      addedUsers         : List[User]
+    }
+           
     /* This object represents a bot command.  */
     BotCommand {
       /* Text of the command; 1-32 characters. Can contain only 
       lowercase English letters, digits and underscores. */
       command     : String
-      /* Description of the command; 1-256 characters. */
+      /* Description of the command; 1-256 characters */
       description : String
     }
            
@@ -2910,7 +3042,7 @@ namespace telegramium {
       that originated the query */
       message         : Option[MaybeInaccessibleMessage]
       /* Optional. Identifier of the message sent via the bot in 
-      inline mode, that originated the query. */
+      inline mode, that originated the query */
       inlineMessageId : Option[String]
       /* Global identifier, uniquely corresponding to the chat to 
       which the message with the callback button was sent. Useful 
@@ -3224,7 +3356,7 @@ namespace telegramium {
       be used for the chat's name, message replies and link 
       previews */
       uniqueGiftColors                   : Option[UniqueGiftColors]
-      /* Optional. The number of Telegram Stars a general user have 
+      /* Optional. The number of Telegram Stars a general user has 
       to pay to send a message to the chat */
       paidMessageStarCount               : Option[Int]
     }
@@ -3283,7 +3415,7 @@ namespace telegramium {
       userChatId : Long
       /* Date the request was sent in Unix time */
       date       : Long
-      /* Optional. Bio of the user. */
+      /* Optional. Bio of the user */
       bio        : Option[String]
       /* Optional. Chat invite link that was used by the user to 
       send the join request */
@@ -3313,7 +3445,7 @@ namespace telegramium {
       /* New information about the chat member */
       newChatMember           : ChatMember
       /* Optional. Chat invite link, which was used by the user to 
-      join the chat; for joining by invite link events only. */
+      join the chat; for joining by invite link events only */
       inviteLink              : Option[ChatInviteLink]
       /* Optional. True, if the user joined the chat after sending a 
       direct join request without using an invite link and being 
@@ -3332,8 +3464,8 @@ namespace telegramium {
            
     /* Describes a service message about the chat owner leaving the chat.  */
     ChatOwnerLeft {
-      /* Optional. The user which will be the new owner of the chat 
-      if the previous owner does not return to the chat */
+      /* Optional. The user who will become the new owner of the 
+      chat if the previous owner does not return to the chat */
       newOwner : Option[User]
     }
            
@@ -3364,21 +3496,26 @@ namespace telegramium {
       /* Optional. True, if the user is allowed to add web page 
       previews to their messages */
       canAddWebPagePreviews : Option[Boolean]
+      /* Optional. True, if the user is allowed to react to 
+      messages. If omitted, defaults to the value of 
+      can_send_messages. */
+      canReactToMessages    : Option[Boolean]
       /* Optional. True, if the user is allowed to edit their own 
-      tag */
+      tag. If omitted, defaults to the value of can_pin_messages. */
       canEditTag            : Option[Boolean]
       /* Optional. True, if the user is allowed to change the chat 
       title, photo and other settings. Ignored in public 
-      supergroups */
+      supergroups. */
       canChangeInfo         : Option[Boolean]
       /* Optional. True, if the user is allowed to invite new users 
       to the chat */
       canInviteUsers        : Option[Boolean]
       /* Optional. True, if the user is allowed to pin messages. 
-      Ignored in public supergroups */
+      Ignored in public supergroups. */
       canPinMessages        : Option[Boolean]
       /* Optional. True, if the user is allowed to create forum 
-      topics. If omitted defaults to the value of can_pin_messages */
+      topics. If omitted defaults to the value of 
+      can_pin_messages. */
       canManageTopics       : Option[Boolean]
     }
            
@@ -3417,10 +3554,10 @@ namespace telegramium {
       already known to the bot by some other means. */
       chatId    : Long
       /* Optional. Title of the chat, if the title was requested by 
-      the bot. */
+      the bot */
       title     : Option[String]
       /* Optional. Username of the chat, if the username was 
-      requested by the bot and available. */
+      requested by the bot and available */
       username  : Option[String]
       /* Optional. Available sizes of the chat photo, if the photo 
       was requested by the bot */
@@ -3566,7 +3703,7 @@ namespace telegramium {
       identifier. */
       topicId : Long
       /* Optional. Information about the user that created the 
-      topic. Currently, it is always present */
+      topic. Currently, it is always present. */
       user    : Option[User]
     }
            
@@ -3693,6 +3830,9 @@ namespace telegramium {
       /* Optional. Message is a general file, information about the 
       file */
       document           : Option[Document]
+      /* Optional. Message is a live photo, information about the 
+      live photo */
+      livePhoto          : Option[LivePhoto]
       /* Optional. Message contains paid media; information about 
       the paid media */
       paidMedia          : Option[PaidMediaInfo]
@@ -3827,7 +3967,7 @@ namespace telegramium {
       title        : String
       /* Description of the game */
       description  : String
-      /* Photo that will be displayed in the game message in chats. */
+      /* Photo that will be displayed in the game message in chats */
       photo        : List[PhotoSize]
       /* Optional. Brief description of the game or high scores 
       included in the game message. Can be automatically edited to 
@@ -3839,7 +3979,7 @@ namespace telegramium {
       usernames, URLs, bot commands, etc. */
       textEntities : List[MessageEntity]
       /* Optional. Animation that will be displayed in the game 
-      message in chats. Upload via BotFather */
+      message in chats. Upload via BotFather. */
       animation    : Option[Animation]
     }
            
@@ -3945,7 +4085,7 @@ namespace telegramium {
       see them */
       isPrivate               : Option[Boolean]
       /* Optional. Unique number reserved for this gift when 
-      upgraded. See the number field in UniqueGift */
+      upgraded. See the number field in UniqueGift. */
       uniqueGiftNumber        : Option[Int]
     }
            
@@ -4079,7 +4219,7 @@ namespace telegramium {
       to send an arbitrary message on behalf of the user using the 
       method answerWebAppQuery. Available only in private chats 
       between a user and the bot. Not supported for messages sent 
-      on behalf of a Telegram Business account. */
+      on behalf of a business account. */
       webApp                       : Option[WebAppInfo]
       /* Optional. An HTTPS URL used to automatically authorize the 
       user. Can be used as a replacement for the Telegram Login 
@@ -4090,8 +4230,7 @@ namespace telegramium {
       bot's username and the specified inline query in the input 
       field. May be empty, in which case just the bot's username 
       will be inserted. Not supported for messages sent in channel 
-      direct messages chats and on behalf of a Telegram Business 
-      account. */
+      direct messages chats and on behalf of a business account. */
       switchInlineQuery            : Option[String]
       /* Optional. If set, pressing the button will insert the bot's 
       username and the specified inline query in the current 
@@ -4100,18 +4239,17 @@ namespace telegramium {
       the user to open your bot in inline mode in the same chat - 
       good for selecting something from multiple options. Not 
       supported in channels and for messages sent in channel 
-      direct messages chats and on behalf of a Telegram Business 
-      account. */
+      direct messages chats and on behalf of a business account. */
       switchInlineQueryCurrentChat : Option[String]
       /* Optional. If set, pressing the button will prompt the user 
       to select one of their chats of the specified type, open 
       that chat and insert the bot's username and the specified 
       inline query in the input field. Not supported for messages 
       sent in channel direct messages chats and on behalf of a 
-      Telegram Business account. */
+      business account. */
       switchInlineQueryChosenChat  : Option[SwitchInlineQueryChosenChat]
       /* Optional. Description of the button that copies the 
-      specified text to the clipboard. */
+      specified text to the clipboard */
       copyText                     : Option[CopyTextButton]
       /* Optional. Description of the game that will be launched 
       when the user presses the button. NOTE: This type of button 
@@ -4142,7 +4280,7 @@ namespace telegramium {
       inline query sender, “private”, “group”, “supergroup”, or 
       “channel”. The chat type should be always known for requests 
       sent from official clients and most third-party clients, 
-      unless the request was sent from a secret chat */
+      unless the request was sent from a secret chat. */
       chatType : Option[String]
       /* Optional. Sender location, only for bots that request user 
       location */
@@ -4229,12 +4367,14 @@ namespace telegramium {
       text          : String
       /* Optional. Mode for parsing entities in the text. See 
       formatting options for more details. Currently, only custom 
-      emoji entities are allowed */
+      emoji entities are allowed. */
       textParseMode : Option[ParseMode]
       /* Optional. A JSON-serialized list of special entities that 
       appear in the poll option text. It can be specified instead 
-      of text_parse_mode */
+      of text_parse_mode. */
       textEntities  : List[MessageEntity]
+      /* Optional. Media added to the poll option */
+      media         : Option[InputMedia]
     }
            
     /* This object describes a sticker to be added to a sticker set.  */
@@ -4289,7 +4429,7 @@ namespace telegramium {
     KeyboardButton {
       /* Text of the button. If none of the fields other than text, 
       icon_custom_emoji_id, and style are used, it will be sent as 
-      a message when the button is pressed */
+      a message when the button is pressed. */
       text              : String
       /* Optional. Unique identifier of the custom emoji shown 
       before the text of the button. Can only be used by bots that 
@@ -4353,10 +4493,10 @@ namespace telegramium {
     KeyboardButtonRequestChat {
       /* Signed 32-bit identifier of the request, which will be 
       received back in the ChatShared object. Must be unique 
-      within the message */
+      within the message. */
       requestId               : Int
       /* Pass True to request a channel chat, pass False to request 
-      a group or a supergroup chat. */
+      a group or a supergroup chat */
       chatIsChannel           : Boolean
       /* Optional. Pass True to request a forum supergroup, pass 
       False to request a non-forum chat. If not specified, no 
@@ -4396,7 +4536,7 @@ namespace telegramium {
       managed_bot and a Message with the field managed_bot_created.  */
     KeyboardButtonRequestManagedBot {
       /* Signed 32-bit identifier of the request. Must be unique 
-      within the message */
+      within the message. */
       requestId         : Int
       /* Optional. Suggested name for the bot */
       suggestedName     : Option[String]
@@ -4410,7 +4550,7 @@ namespace telegramium {
     KeyboardButtonRequestUsers {
       /* Signed 32-bit identifier of the request that will be 
       received back in the UsersShared object. Must be unique 
-      within the message */
+      within the message. */
       requestId       : Int
       /* Optional. Pass True to request bots, pass False to request 
       regular users. If not specified, no additional restrictions 
@@ -4450,7 +4590,7 @@ namespace telegramium {
       /* Optional. True, if the link preview is disabled */
       isDisabled       : Option[Boolean]
       /* Optional. URL to use for the link preview. If empty, then 
-      the first URL found in the message text will be used */
+      the first URL found in the message text will be used. */
       url              : Option[String]
       /* Optional. True, if the media in the link preview is 
       supposed to be shrunk; ignored if the URL isn't explicitly 
@@ -4466,6 +4606,33 @@ namespace telegramium {
       message text; otherwise, the link preview will be shown 
       below the message text */
       showAboveText    : Option[Boolean]
+    }
+           
+    /* This object represents a live photo.  */
+    LivePhoto {
+      /* Optional. Available sizes of the corresponding static photo */
+      photo        : List[PhotoSize]
+      /* Identifier for the video file which can be used to download 
+      or reuse the file */
+      fileId       : String
+      /* Unique identifier for the video file which is supposed to 
+      be the same over time and for different bots. Can't be used 
+      to download or reuse the file. */
+      fileUniqueId : String
+      /* Video width as defined by the sender */
+      width        : Int
+      /* Video height as defined by the sender */
+      height       : Int
+      /* Duration of the video in seconds as defined by the sender */
+      duration     : Int
+      /* Optional. MIME type of the file as defined by the sender */
+      mimeType     : Option[String]
+      /* Optional. File size in bytes. It can be bigger than 
+      2&#94;31 and some programming languages may have 
+      difficulty/silent defects in interpreting it. But it has at 
+      most 52 significant bits, so a signed 64-bit integer or 
+      double-precision float type are safe for storing this value. */
+      fileSize     : Option[Long]
     }
            
     /* This object represents a point on the map.  */
@@ -4517,7 +4684,7 @@ namespace telegramium {
       data to verify the authentication and the integrity of the 
       data as described in Checking authorization. */
       url                : String
-      /* Optional. New text of the button in forwarded messages. */
+      /* Optional. New text of the button in forwarded messages */
       forwardText        : Option[String]
       /* Optional. Username of a bot, which will be used for user 
       authorization. See Setting up a bot for more details. If not 
@@ -4526,7 +4693,7 @@ namespace telegramium {
       bot. See Linking your domain to the bot for more details. */
       botUsername        : Option[String]
       /* Optional. Pass True to request the permission for your bot 
-      to send messages to the user. */
+      to send messages to the user */
       requestWriteAccess : Option[Boolean]
     }
            
@@ -4581,7 +4748,7 @@ namespace telegramium {
       message containing a video sent to a big chat), the server 
       might automatically schedule a message instead of sending it 
       immediately. In such cases, this field will be 0 and the 
-      relevant message will be unusable until it is actually sent */
+      relevant message will be unusable until it is actually sent. */
       messageId : Int
     }
            
@@ -4636,7 +4803,7 @@ namespace telegramium {
       /* The list of gifts */
       gifts      : List[OwnedGift]
       /* Optional. Offset for the next request. If empty, then there 
-      are no more results */
+      are no more results. */
       nextOffset : Option[String]
     }
            
@@ -4733,6 +4900,16 @@ namespace telegramium {
       /* True, if the poll allows to change the chosen answer 
       options */
       allowsRevoting        : Boolean
+      /* True if voting is limited to users who have been members of 
+      the chat where the poll was originally sent for more than 24 
+      hours */
+      membersOnly           : Boolean
+      /* Optional. A list of two-letter ISO 3166-1 alpha-2 country 
+      codes indicating the countries from which users can vote in 
+      the poll. The country code “FT” is used for users with 
+      anonymous numbers. If omitted, then users from any country 
+      can participate in the poll. */
+      countryCodes          : List[String]
       /* Optional. Array of 0-based identifiers of the correct 
       answer options. Available only for polls in quiz mode which 
       are closed or were sent (not forwarded) by the bot or to the 
@@ -4745,6 +4922,8 @@ namespace telegramium {
       /* Optional. Special entities like usernames, URLs, bot 
       commands, etc. that appear in the explanation */
       explanationEntities   : List[MessageEntity]
+      /* Optional. Media added to the quiz explanation */
+      explanationMedia      : Option[PollMedia]
       /* Optional. Amount of time in seconds the poll will be active 
       after creation */
       openPeriod            : Option[Int]
@@ -4757,6 +4936,9 @@ namespace telegramium {
       /* Optional. Special entities like usernames, URLs, bot 
       commands, etc. that appear in the description */
       descriptionEntities   : List[MessageEntity]
+      /* Optional. Media added to the poll description; for polls 
+      inside the Message object only */
+      media                 : Option[PollMedia]
     }
            
     /* This object represents an answer of a user in a non-anonymous poll.  */
@@ -4777,6 +4959,34 @@ namespace telegramium {
       optionPersistentIds : List[String]
     }
            
+    /* At most one of the optional fields can be present in any given object.  */
+    PollMedia {
+      /* Optional. Media is an animation, information about the 
+      animation */
+      animation : Option[Animation]
+      /* Optional. Media is an audio file, information about the 
+      file; currently, can't be received in a poll option */
+      audio     : Option[Audio]
+      /* Optional. Media is a general file, information about the 
+      file; currently, can't be received in a poll option */
+      document  : Option[Document]
+      /* Optional. Media is a live photo, information about the live 
+      photo */
+      livePhoto : Option[LivePhoto]
+      /* Optional. Media is a shared location, information about the 
+      location */
+      location  : Option[Location]
+      /* Optional. Media is a photo, available sizes of the photo */
+      photo     : List[PhotoSize]
+      /* Optional. Media is a sticker, information about the 
+      sticker; currently, for poll options only */
+      sticker   : Option[Sticker]
+      /* Optional. Media is a venue, information about the venue */
+      venue     : Option[Venue]
+      /* Optional. Media is a video, information about the video */
+      video     : Option[Video]
+    }
+           
     /* This object contains information about one answer option in a poll.  */
     PollOption {
       /* Unique identifier of the option, persistent on option 
@@ -4788,6 +4998,8 @@ namespace telegramium {
       Currently, only custom emoji entities are allowed in poll 
       option texts */
       textEntities : List[MessageEntity]
+      /* Optional. Media added to the poll option */
+      media        : Option[PollMedia]
       /* Number of users who voted for this option; may be 0 if 
       unknown */
       voterCount   : Int
@@ -4862,7 +5074,7 @@ namespace telegramium {
       /* Unique identifier of the prepared message */
       id             : String
       /* Expiration date of the prepared message, in Unix time. 
-      Expired prepared messages can no longer be used */
+      Expired prepared messages can no longer be used. */
       expirationDate : Long
     }
            
@@ -4895,7 +5107,7 @@ namespace telegramium {
     /* This object contains basic information about a refunded payment.  */
     RefundedPayment {
       /* Three-letter ISO 4217 currency code, or “XTR” for payments 
-      in Telegram Stars. Currently, always “XTR” */
+      in Telegram Stars. Currently, always “XTR”. */
       currency                : String
       /* Total refunded price in the smallest units of the currency 
       (integer, not float/double). For example, for a price of US$ 
@@ -4919,9 +5131,10 @@ namespace telegramium {
       messageId                : Int
       /* Optional. If the message to be replied to is from a 
       different chat, unique identifier for the chat or username 
-      of the channel (in the format &#064;channelusername). Not 
-      supported for messages sent on behalf of a business account 
-      and messages from channel direct messages chats. */
+      of the bot, supergroup or channel in the format 
+      &#064;username. Not supported for messages sent on behalf of 
+      a business account and messages from channel direct messages 
+      chats. */
       chatId                   : Option[ChatId]
       /* Optional. Pass True if the message should be sent even if 
       the specified message to be replied to is not found. Always 
@@ -4966,6 +5179,12 @@ namespace telegramium {
       /* Optional. In case of exceeding flood control, the number of 
       seconds left to wait before the request can be repeated */
       retryAfter      : Option[Int]
+    }
+           
+    /* Describes an inline message sent by a guest bot.  */
+    SentGuestMessage {
+      /* Identifier of the sent inline message */
+      inlineMessageId : String
     }
            
     /* Describes an inline message sent by a Web App on behalf of a user.  */
@@ -5071,11 +5290,11 @@ namespace telegramium {
       date           : Long
       /* Optional. Source of an incoming transaction (e.g., a user 
       purchasing goods or services, Fragment refunding a failed 
-      withdrawal). Only for incoming transactions */
+      withdrawal). Only for incoming transactions. */
       source         : Option[TransactionPartner]
       /* Optional. Receiver of an outgoing transaction (e.g., a user 
       for a purchase refund, Fragment for a withdrawal). Only for 
-      outgoing transactions */
+      outgoing transactions. */
       receiver       : Option[TransactionPartner]
     }
            
@@ -5278,7 +5497,7 @@ namespace telegramium {
       reply_to_message field even if it itself is a reply. */
       suggestedPostMessage : Option[Message]
       /* Currency in which the payment was made. Currently, one of 
-      “XTR” for Telegram Stars or “TON” for toncoins */
+      “XTR” for Telegram Stars or “TON” for toncoins. */
       currency             : String
       /* Optional. The amount of the currency that was received by 
       the channel in nanotoncoins; for payments in toncoins only */
@@ -5304,7 +5523,7 @@ namespace telegramium {
     /* Describes the price of a suggested post.  */
     SuggestedPostPrice {
       /* Currency in which the post will be paid. Currently, must be 
-      one of “XTR” for Telegram Stars or “TON” for toncoins */
+      one of “XTR” for Telegram Stars or “TON” for toncoins. */
       currency : String
       /* The amount of the currency that will be paid for the post 
       in the smallest units of the currency, i.e. Telegram Stars 
@@ -5332,7 +5551,7 @@ namespace telegramium {
     SwitchInlineQueryChosenChat {
       /* Optional. The default inline query to be inserted in the 
       input field. If left empty, only the bot's username will be 
-      inserted */
+      inserted. */
       query             : Option[String]
       /* Optional. True, if private chats with users can be chosen */
       allowUserChats    : Option[Boolean]
@@ -5373,7 +5592,7 @@ namespace telegramium {
       unique gift was upgraded */
       baseName         : String
       /* Unique name of the gift. This name can be used in 
-      https://t.me/nft/... links and story areas */
+      https://t.me/nft/... links and story areas. */
       name             : String
       /* Unique number of the upgraded gift among gifts upgraded 
       from the same regular gift */
@@ -5454,7 +5673,7 @@ namespace telegramium {
       transferred from other users or channels, “resale” for gifts 
       bought from other users, “gifted_upgrade” for upgrades 
       purchased after the gift was sent, or “offer” for gifts 
-      bought or sold through gift purchase offers */
+      bought or sold through gift purchase offers. */
       origin             : String
       /* Optional. For gifts bought from other users, the currency 
       in which the payment for the gift was done. Currently, one 
@@ -5473,7 +5692,7 @@ namespace telegramium {
       transferStarCount  : Option[Int]
       /* Optional. Point in time (Unix timestamp) when the gift can 
       be transferred. If it is in the past, then the gift can be 
-      transferred now */
+      transferred now. */
       nextTransferDate   : Option[Long]
     }
            
@@ -5503,8 +5722,8 @@ namespace telegramium {
       rarityPerMille : Int
     }
            
-    /* This object represents an incoming update. At most one of the optional 
-      parameters can be present in any given update.  */
+    /* This object represents an incoming update. At most one of the optional fields 
+      can be present in any given update.  */
     Update {
       /* The update's unique identifier. Update identifiers start 
       from a certain positive number and increase sequentially. 
@@ -5543,6 +5762,10 @@ namespace telegramium {
       /* Optional. Messages were deleted from a connected business 
       account */
       deletedBusinessMessages : Option[BusinessMessagesDeleted]
+      /* Optional. New guest message. The bot can use the field 
+      Message.guest_query_id and the method answerGuestQuery to 
+      send a message in response. */
+      guestMessage            : Option[Message]
       /* Optional. A reaction to a message was changed by a user. 
       The bot must be an administrator in the chat and must 
       explicitly specify "message_reaction" in the list of 
@@ -5566,16 +5789,16 @@ namespace telegramium {
       /* Optional. New incoming callback query */
       callbackQuery           : Option[CallbackQuery]
       /* Optional. New incoming shipping query. Only for invoices 
-      with flexible price */
+      with flexible price. */
       shippingQuery           : Option[ShippingQuery]
       /* Optional. New incoming pre-checkout query. Contains full 
-      information about checkout */
+      information about checkout. */
       preCheckoutQuery        : Option[PreCheckoutQuery]
       /* Optional. A user purchased paid media with a non-empty 
       payload sent by the bot in a non-channel chat */
       purchasedPaidMedia      : Option[PaidMediaPurchased]
       /* Optional. New poll state. Bots receive only updates about 
-      manually stopped polls and polls, which are sent by the bot */
+      manually stopped polls and polls, which are sent by the bot. */
       poll                    : Option[Poll]
       /* Optional. A user changed their answer in a non-anonymous 
       poll. Bots receive new votes only in polls that were sent by 
@@ -5635,12 +5858,14 @@ namespace telegramium {
       /* Optional. True, if privacy mode is disabled for the bot. 
       Returned only in getMe. */
       canReadAllGroupMessages   : Option[Boolean]
+      /* Optional. True, if the bot supports guest queries from 
+      chats it is not a member of. Returned only in getMe. */
+      supportsGuestQueries      : Option[Boolean]
       /* Optional. True, if the bot supports inline queries. 
       Returned only in getMe. */
       supportsInlineQueries     : Option[Boolean]
-      /* Optional. True, if the bot can be connected to a Telegram 
-      Business account to receive its messages. Returned only in 
-      getMe. */
+      /* Optional. True, if the bot can be connected to a user 
+      account to manage it. Returned only in getMe. */
       canConnectToBusiness      : Option[Boolean]
       /* Optional. True, if the bot has a main Web App. Returned 
       only in getMe. */
@@ -5701,13 +5926,13 @@ namespace telegramium {
     UsersShared {
       /* Identifier of the request */
       requestId : Int
-      /* Information about users shared with the bot. */
+      /* Information about users shared with the bot */
       users     : List[SharedUser]
     }
            
     /* This object represents a venue.  */
     Venue {
-      /* Venue location. Can't be a live location */
+      /* Venue location. Can't be a live location. */
       location        : Location
       /* Name of the venue */
       title           : String
@@ -5900,7 +6125,8 @@ namespace telegramium {
       connections to the webhook for update delivery */
       maxConnections               : Option[Int]
       /* Optional. A list of update types the bot is subscribed to. 
-      Defaults to all update types except chat_member */
+      Defaults to all update types except chat_member, 
+      message_reaction, and message_reaction_count. */
       allowedUpdates               : List[String]
     }
            
@@ -5946,7 +6172,7 @@ namespace telegramium {
           /* Unique identifier for the query to be answered */
           callbackQueryId : String
           /* Text of the notification. If not specified, nothing will be 
-          shown to the user, 0-200 characters */
+          shown to the user, 0-200 characters. */
           text            : Option[String]
           /* If True, an alert will be shown by the client instead of a 
           notification at the top of the chat screen. Defaults to 
@@ -5966,6 +6192,15 @@ namespace telegramium {
           0. */
           cacheTime       : Option[Int]
         } => Method[Boolean]
+      
+        /* Use this method to reply to a received guest message. On success, a 
+          SentGuestMessage object is returned.  */
+        def answerGuestQuery {
+          /* Unique identifier for the query to be answered */
+          guestQueryId : String
+          /* A JSON-serialized object describing the message to be sent */
+          result       : InlineQueryResult
+        } => Method[SentGuestMessage]
       
         /* Use this method to send answers to an inline query. On success, True is 
           returned. No more than 50 results per query are allowed.  */
@@ -6050,7 +6285,7 @@ namespace telegramium {
           administrator right. Returns True on success.  */
         def approveChatJoinRequest {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
           /* Unique identifier of the target user */
           userId : Long
@@ -6068,7 +6303,7 @@ namespace telegramium {
           be published; omit if the date has already been specified 
           when the suggested post was created. If specified, then the 
           date must be not more than 2678400 seconds (30 days) in the 
-          future */
+          future. */
           sendDate  : Option[Long]
         } => Method[Boolean]
       
@@ -6079,8 +6314,7 @@ namespace telegramium {
           administrator rights. Returns True on success.  */
         def banChatMember {
           /* Unique identifier for the target group or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
+          target supergroup or channel in the format &#064;username */
           chatId         : ChatId
           /* Unique identifier of the target user */
           userId         : Long
@@ -6103,7 +6337,7 @@ namespace telegramium {
           administrator rights. Returns True on success.  */
         def banChatSenderChat {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId       : ChatId
           /* Unique identifier of the target sender chat */
           senderChatId : Long
@@ -6124,7 +6358,7 @@ namespace telegramium {
           Returns True on success.  */
         def closeForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId          : ChatId
           /* Unique identifier for the target message thread of the 
           forum topic */
@@ -6136,7 +6370,7 @@ namespace telegramium {
           can_manage_topics administrator rights. Returns True on success.  */
         def closeGeneralForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -6158,7 +6392,8 @@ namespace telegramium {
           message. Returns the MessageId of the sent message on success.  */
         def copyMessage {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -6169,15 +6404,15 @@ namespace telegramium {
           direct messages chat */
           directMessagesTopicId   : Option[Long]
           /* Unique identifier for the chat where the original message 
-          was sent (or channel username in the format 
-          &#064;channelusername) */
+          was sent (or username of the target bot, supergroup or 
+          channel in the format &#064;username) */
           fromChatId              : ChatId
           /* Message identifier in the chat specified in from_chat_id */
           messageId               : Int
           /* New start timestamp for the copied video in the message */
           videoStartTimestamp     : Option[Int]
           /* New caption for media, 0-1024 characters after entities 
-          parsing. If not specified, the original caption is kept */
+          parsing. If not specified, the original caption is kept. */
           caption                 : Option[String]
           /* Mode for parsing entities in the new caption. See 
           formatting options for more details. */
@@ -6198,7 +6433,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; only available when copying to private chats */
@@ -6212,7 +6447,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[MessageId]
       
@@ -6226,7 +6461,8 @@ namespace telegramium {
           MessageId of the sent messages is returned.  */
         def copyMessages {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -6237,8 +6473,8 @@ namespace telegramium {
           a direct messages chat */
           directMessagesTopicId : Option[Long]
           /* Unique identifier for the chat where the original messages 
-          were sent (or channel username in the format 
-          &#064;channelusername) */
+          were sent (or username of the target bot, supergroup or 
+          channel in the format &#064;username) */
           fromChatId            : ChatId
           /* A JSON-serialized list of 1-100 identifiers of messages in 
           the chat from_chat_id to copy. The identifiers must be 
@@ -6260,7 +6496,7 @@ namespace telegramium {
           revokeChatInviteLink. Returns the new invite link as ChatInviteLink object.  */
         def createChatInviteLink {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId             : ChatId
           /* Invite link name; 0-32 characters */
           name               : Option[String]
@@ -6272,7 +6508,7 @@ namespace telegramium {
           memberLimit        : Option[Int]
           /* True, if users joining the chat via the link need to be 
           approved by chat administrators. If True, member_limit can't 
-          be specified */
+          be specified. */
           createsJoinRequest : Option[Boolean]
         } => Method[ChatInviteLink]
       
@@ -6282,7 +6518,7 @@ namespace telegramium {
           revokeChatInviteLink. Returns the new invite link as a ChatInviteLink object.  */
         def createChatSubscriptionInviteLink {
           /* Unique identifier for the target channel chat or username 
-          of the target channel (in the format &#064;channelusername) */
+          of the target channel in the format &#064;username */
           chatId             : ChatId
           /* Invite link name; 0-32 characters */
           name               : Option[String]
@@ -6302,14 +6538,14 @@ namespace telegramium {
           right. Returns information about the created topic as a ForumTopic object.  */
         def createForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId            : ChatId
           /* Topic name, 1-128 characters */
           name              : String
           /* Color of the topic icon in RGB format. Currently, must be 
           one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 
           (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 
-          16478047 (0xFB6F5F) */
+          16478047 (0xFB6F5F). */
           iconColor         : Option[Int]
           /* Unique identifier of the custom emoji shown as the topic 
           icon. Use getForumTopicIconStickers to get all allowed 
@@ -6435,7 +6671,7 @@ namespace telegramium {
           administrator right. Returns True on success.  */
         def declineChatJoinRequest {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
           /* Unique identifier of the target user */
           userId : Long
@@ -6454,6 +6690,21 @@ namespace telegramium {
           comment   : Option[String]
         } => Method[Boolean]
       
+        /* Use this method to remove up to 10000 recent reactions in a group or a 
+          supergroup chat added by a given user or chat. The bot must have the 
+          'can_delete_messages' administrator right in the chat. Returns True on success.  */
+        def deleteAllMessageReactions {
+          /* Unique identifier for the target chat or username of the 
+          target supergroup in the format &#064;username */
+          chatId      : ChatId
+          /* Identifier of the user whose reactions will be removed, if 
+          the reactions were added by a user */
+          userId      : Option[Long]
+          /* Identifier of the chat whose reactions will be removed, if 
+          the reactions were added by a chat */
+          actorChatId : Option[Long]
+        } => Method[Boolean]
+      
         /* Delete messages on behalf of a business account. Requires the 
           can_delete_sent_messages business bot right to delete messages sent by the bot 
           itself, or the can_delete_all_messages business bot right to delete any message. 
@@ -6465,7 +6716,7 @@ namespace telegramium {
           /* A JSON-serialized list of 1-100 identifiers of messages to 
           delete. All messages must be from the same chat. See 
           deleteMessage for limitations on which messages can be 
-          deleted */
+          deleted. */
           messageIds           : List[Int]
         } => Method[Boolean]
       
@@ -6474,7 +6725,7 @@ namespace telegramium {
           have the appropriate administrator rights. Returns True on success.  */
         def deleteChatPhoto {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -6485,7 +6736,7 @@ namespace telegramium {
           success.  */
         def deleteChatStickerSet {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -6495,7 +6746,7 @@ namespace telegramium {
           can_delete_messages administrator rights. Returns True on success.  */
         def deleteForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId          : ChatId
           /* Unique identifier for the target message thread of the 
           forum topic */
@@ -6517,21 +6768,40 @@ namespace telegramium {
           Returns True on success.  */
         def deleteMessage {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId    : ChatId
           /* Identifier of the message to delete */
           messageId : Int
+        } => Method[Boolean]
+      
+        /* Use this method to remove a reaction from a message in a group or a supergroup 
+          chat. The bot must have the 'can_delete_messages' administrator right in the 
+          chat. Returns True on success.  */
+        def deleteMessageReaction {
+          /* Unique identifier for the target chat or username of the 
+          target supergroup in the format &#064;username */
+          chatId      : ChatId
+          /* Identifier of the target message */
+          messageId   : Int
+          /* Identifier of the user whose reaction will be removed, if 
+          the reaction was added by a user */
+          userId      : Option[Long]
+          /* Identifier of the chat whose reaction will be removed, if 
+          the reaction was added by a chat */
+          actorChatId : Option[Long]
         } => Method[Boolean]
       
         /* Use this method to delete multiple messages simultaneously. If some of the 
           specified messages can't be found, they are skipped. Returns True on success.  */
         def deleteMessages {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId     : ChatId
           /* A JSON-serialized list of 1-100 identifiers of messages to 
           delete. See deleteMessage for limitations on which messages 
-          can be deleted */
+          can be deleted. */
           messageIds : List[Int]
         } => Method[Boolean]
       
@@ -6545,7 +6815,7 @@ namespace telegramium {
           scope        : Option[BotCommandScope]
           /* A two-letter ISO 639-1 language code. If empty, commands 
           will be applied to all users from the given scope, for whose 
-          language there are no dedicated commands */
+          language there are no dedicated commands. */
           languageCode : Option[String]
         } => Method[Boolean]
       
@@ -6586,7 +6856,7 @@ namespace telegramium {
           ChatInviteLink object.  */
         def editChatInviteLink {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId             : ChatId
           /* The invite link to edit */
           inviteLink         : String
@@ -6600,7 +6870,7 @@ namespace telegramium {
           memberLimit        : Option[Int]
           /* True, if users joining the chat via the link need to be 
           approved by chat administrators. If True, member_limit can't 
-          be specified */
+          be specified. */
           createsJoinRequest : Option[Boolean]
         } => Method[ChatInviteLink]
       
@@ -6609,7 +6879,7 @@ namespace telegramium {
           link as a ChatInviteLink object.  */
         def editChatSubscriptionInviteLink {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId     : ChatId
           /* The invite link to edit */
           inviteLink : String
@@ -6624,18 +6894,18 @@ namespace telegramium {
           success.  */
         def editForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId            : ChatId
           /* Unique identifier for the target message thread of the 
           forum topic */
           messageThreadId   : Int
           /* New topic name, 0-128 characters. If not specified or 
-          empty, the current name of the topic will be kept */
+          empty, the current name of the topic will be kept. */
           name              : Option[String]
           /* New unique identifier of the custom emoji shown as the 
           topic icon. Use getForumTopicIconStickers to get all allowed 
           custom emoji identifiers. Pass an empty string to remove the 
-          icon. If not specified, the current icon will be kept */
+          icon. If not specified, the current icon will be kept. */
           iconCustomEmojiId : Option[String]
         } => Method[Boolean]
       
@@ -6644,7 +6914,7 @@ namespace telegramium {
           have the can_manage_topics administrator rights. Returns True on success.  */
         def editGeneralForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
           /* New topic name, 1-128 characters */
           name   : String
@@ -6661,13 +6931,13 @@ namespace telegramium {
           businessConnectionId  : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId                : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message to edit */
+          of the message to edit. */
           messageId             : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId       : Option[String]
           /* New caption of the message, 0-1024 characters after 
           entities parsing */
@@ -6682,7 +6952,7 @@ namespace telegramium {
           media. Supported only for animation, photo and video 
           messages. */
           showCaptionAboveMedia : Option[Boolean]
-          /* A JSON-serialized object for an inline keyboard. */
+          /* A JSON-serialized object for an inline keyboard */
           replyMarkup           : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
@@ -6692,8 +6962,9 @@ namespace telegramium {
           /* Unique identifier of the business connection on behalf of 
           which the message will be sent */
           businessConnectionId : String
-          /* Unique identifier for the target chat */
-          chatId               : Long
+          /* Unique identifier for the target chat or username of the 
+          target bot in the format &#064;username */
+          chatId               : ChatId
           /* Unique identifier for the target message */
           messageId            : Int
           /* A JSON-serialized object for the new checklist */
@@ -6713,13 +6984,13 @@ namespace telegramium {
           businessConnectionId : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId               : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message to edit */
+          of the message to edit. */
           messageId            : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId      : Option[String]
           /* Latitude of new location */
           latitude             : Float
@@ -6731,7 +7002,7 @@ namespace telegramium {
           Otherwise, the new value must not exceed the current 
           live_period by more than a day, and the live location 
           expiration date must remain within the next 90 days. If not 
-          specified, then live_period remains unchanged */
+          specified, then live_period remains unchanged. */
           livePeriod           : Option[Int]
           /* The radius of uncertainty for the location, measured in 
           meters; 0-1500 */
@@ -6743,37 +7014,38 @@ namespace telegramium {
           another chat member, in meters. Must be between 1 and 100000 
           if specified. */
           proximityAlertRadius : Option[Int]
-          /* A JSON-serialized object for a new inline keyboard. */
+          /* A JSON-serialized object for a new inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
-        /* Use this method to edit animation, audio, document, photo, or video messages, 
-          or to add media to text messages. If a message is part of a message album, then 
-          it can be edited only to an audio for audio albums, only to a document for 
-          document albums and to a photo or a video otherwise. When an inline message is 
-          edited, a new file can't be uploaded; use a previously uploaded file via its 
-          file_id or specify a URL. On success, if the edited message is not an inline 
-          message, the edited Message is returned, otherwise True is returned. Note that 
-          business messages that were not sent by the bot and do not contain an inline 
-          keyboard can only be edited within 48 hours from the time they were sent.  */
+        /* Use this method to edit animation, audio, document, live photo, photo, or video 
+          messages, or to add media to text messages. If a message is part of a message 
+          album, then it can be edited only to an audio for audio albums, only to a 
+          document for document albums and to a photo, a live photo, or a video otherwise. 
+          When an inline message is edited, a new file can't be uploaded; use a previously 
+          uploaded file via its file_id or specify a URL. On success, if the edited 
+          message is not an inline message, the edited Message is returned, otherwise True 
+          is returned. Note that business messages that were not sent by the bot and do 
+          not contain an inline keyboard can only be edited within 48 hours from the time 
+          they were sent.  */
         def editMessageMedia {
           /* Unique identifier of the business connection on behalf of 
           which the message to be edited was sent */
           businessConnectionId : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId               : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message to edit */
+          of the message to edit. */
           messageId            : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId      : Option[String]
           /* A JSON-serialized object for a new media content of the 
           message */
           media                : InputMedia
-          /* A JSON-serialized object for a new inline keyboard. */
+          /* A JSON-serialized object for a new inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
@@ -6788,15 +7060,15 @@ namespace telegramium {
           businessConnectionId : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId               : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message to edit */
+          of the message to edit. */
           messageId            : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId      : Option[String]
-          /* A JSON-serialized object for an inline keyboard. */
+          /* A JSON-serialized object for an inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
@@ -6811,13 +7083,13 @@ namespace telegramium {
           businessConnectionId : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId               : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message to edit */
+          of the message to edit. */
           messageId            : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId      : Option[String]
           /* New text of the message, 1-4096 characters after entities 
           parsing */
@@ -6830,7 +7102,7 @@ namespace telegramium {
           entities             : List[MessageEntity]
           /* Link preview generation options for the message */
           linkPreviewOptions   : Option[LinkPreviewOptions]
-          /* A JSON-serialized object for an inline keyboard. */
+          /* A JSON-serialized object for an inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
@@ -6879,7 +7151,7 @@ namespace telegramium {
           Returns the new invite link as String on success.  */
         def exportChatInviteLink {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
         } => Method[String]
       
@@ -6888,7 +7160,8 @@ namespace telegramium {
           returned.  */
         def forwardMessage {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -6899,8 +7172,8 @@ namespace telegramium {
           forwarded to a direct messages chat */
           directMessagesTopicId   : Option[Long]
           /* Unique identifier for the chat where the original message 
-          was sent (or channel username in the format 
-          &#064;channelusername) */
+          was sent (or username of the target bot, supergroup or 
+          channel in the format &#064;username) */
           fromChatId              : ChatId
           /* New start timestamp for the forwarded video in the message */
           videoStartTimestamp     : Option[Int]
@@ -6927,7 +7200,8 @@ namespace telegramium {
           messages is returned.  */
         def forwardMessages {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -6938,8 +7212,8 @@ namespace telegramium {
           forwarded to a direct messages chat */
           directMessagesTopicId : Option[Long]
           /* Unique identifier for the chat where the original messages 
-          were sent (or channel username in the format 
-          &#064;channelusername) */
+          were sent (or username of the target bot, supergroup or 
+          channel in the format &#064;username) */
           fromChatId            : ChatId
           /* A JSON-serialized list of 1-100 identifiers of messages in 
           the chat from_chat_id to forward. The identifiers must be 
@@ -6992,7 +7266,7 @@ namespace telegramium {
           results */
           offset                      : Option[String]
           /* The maximum number of gifts to be returned; 1-100. Defaults 
-          to 100 */
+          to 100. */
           limit                       : Option[Int]
         } => Method[OwnedGifts]
       
@@ -7015,24 +7289,26 @@ namespace telegramium {
           ChatFullInfo object on success.  */
         def getChat {
           /* Unique identifier for the target chat or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
+          target supergroup or channel in the format &#064;username */
           chatId : ChatId
         } => Method[ChatFullInfo]
       
-        /* Use this method to get a list of administrators in a chat, which aren't bots. 
-          Returns an Array of ChatMember objects.  */
+        /* Use this method to get a list of administrators in a chat. Returns an Array of 
+          ChatMember objects.  */
         def getChatAdministrators {
           /* Unique identifier for the target chat or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
-          chatId : ChatId
+          target supergroup or channel in the format &#064;username */
+          chatId     : ChatId
+          /* Pass True to additionally receive all bots that are 
+          administrators of the chat. By default, bots other than the 
+          current bot are omitted. */
+          returnBots : Option[Boolean]
         } => Method[List[ChatMember]]
       
         /* Returns the gifts owned by a chat. Returns OwnedGifts on success.  */
         def getChatGifts {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId                      : ChatId
           /* Pass True to exclude gifts that aren't saved to the chat's 
           profile page. Always True, unless the bot has the 
@@ -7064,7 +7340,7 @@ namespace telegramium {
           of results */
           offset                      : Option[String]
           /* The maximum number of gifts to be returned; 1-100. Defaults 
-          to 100 */
+          to 100. */
           limit                       : Option[Int]
         } => Method[OwnedGifts]
       
@@ -7073,8 +7349,7 @@ namespace telegramium {
           Returns a ChatMember object on success.  */
         def getChatMember {
           /* Unique identifier for the target chat or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
+          target supergroup or channel in the format &#064;username */
           chatId : ChatId
           /* Unique identifier of the target user */
           userId : Long
@@ -7083,8 +7358,7 @@ namespace telegramium {
         /* Use this method to get the number of members in a chat. Returns Int on success.  */
         def getChatMemberCount {
           /* Unique identifier for the target chat or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
+          target supergroup or channel in the format &#064;username */
           chatId : ChatId
         } => Method[Int]
       
@@ -7092,7 +7366,7 @@ namespace telegramium {
           chat, or the default menu button. Returns MenuButton on success.  */
         def getChatMenuButton {
           /* Unique identifier for the target private chat. If not 
-          specified, default bot's menu button will be returned */
+          specified, the bot's default menu button will be returned. */
           chatId : Option[Long]
         } => Method[MenuButton]
       
@@ -7130,15 +7404,23 @@ namespace telegramium {
           /* Target user id */
           userId          : Long
           /* Required if inline_message_id is not specified. Unique 
-          identifier for the target chat */
+          identifier for the target chat. */
           chatId          : Option[Long]
           /* Required if inline_message_id is not specified. Identifier 
-          of the sent message */
+          of the sent message. */
           messageId       : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId : Option[String]
         } => Method[List[GameHighScore]]
+      
+        /* Use this method to get the access settings of a managed bot. Returns a 
+          BotAccessSettings object on success.  */
+        def getManagedBotAccessSettings {
+          /* User identifier of the managed bot whose access settings 
+          will be returned */
+          userId : Long
+        } => Method[BotAccessSettings]
       
         /* Use this method to get the token of a managed bot. Returns the token as String 
           on success.  */
@@ -7256,7 +7538,7 @@ namespace telegramium {
           administrator rights in the chat. Returns a UserChatBoosts object.  */
         def getUserChatBoosts {
           /* Unique identifier for the chat or username of the channel 
-          (in the format &#064;channelusername) */
+          in the format &#064;username */
           chatId : ChatId
           /* Unique identifier of the target user */
           userId : Long
@@ -7288,9 +7570,19 @@ namespace telegramium {
           of results */
           offset                      : Option[String]
           /* The maximum number of gifts to be returned; 1-100. Defaults 
-          to 100 */
+          to 100. */
           limit                       : Option[Int]
         } => Method[OwnedGifts]
+      
+        /* Use this method to get the last messages from the personal chat (i.e., the chat 
+          currently added to their profile) of a given user. On success, an array of 
+          Message objects is returned.  */
+        def getUserPersonalChatMessages {
+          /* Unique identifier for the target user */
+          userId : Long
+          /* The maximum number of messages to return; 1-20 */
+          limit  : Int
+        } => Method[List[Message]]
       
         /* Use this method to get a list of profile audios for a user. Returns a 
           UserProfileAudios object.  */
@@ -7360,7 +7652,7 @@ namespace telegramium {
           if it was open. Returns True on success.  */
         def hideGeneralForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -7368,9 +7660,9 @@ namespace telegramium {
           True on success.  */
         def leaveChat {
           /* Unique identifier for the target chat or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername). Channel direct messages chats aren't 
-          supported; leave the corresponding channel instead. */
+          target supergroup or channel in the format &#064;username. 
+          Channel direct messages chats aren't supported; leave the 
+          corresponding channel instead. */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -7394,7 +7686,7 @@ namespace telegramium {
           which the message will be pinned */
           businessConnectionId : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId               : ChatId
           /* Identifier of a message to pin */
           messageId            : Int
@@ -7440,7 +7732,7 @@ namespace telegramium {
           demote a user. Returns True on success.  */
         def promoteChatMember {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId                  : ChatId
           /* Unique identifier of the target user */
           userId                  : Long
@@ -7461,7 +7753,7 @@ namespace telegramium {
           /* Pass True if the administrator can restrict, ban or unban 
           chat members, or access supergroup statistics. For backward 
           compatibility, defaults to True for promotions of channel 
-          administrators */
+          administrators. */
           canRestrictMembers      : Option[Boolean]
           /* Pass True if the administrator can add new administrators 
           with a subset of their own privileges or demote 
@@ -7544,7 +7836,7 @@ namespace telegramium {
           organization represented by the bot. Returns True on success.  */
         def removeChatVerification {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot or channel in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -7567,7 +7859,7 @@ namespace telegramium {
           Returns True on success.  */
         def reopenForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId          : ChatId
           /* Unique identifier for the target message thread of the 
           forum topic */
@@ -7580,7 +7872,7 @@ namespace telegramium {
           if it was hidden. Returns True on success.  */
         def reopenGeneralForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -7618,7 +7910,7 @@ namespace telegramium {
           businessConnectionId : String
           /* Unique identifier of the chat which posted the story that 
           should be reposted */
-          fromChatId           : Int
+          fromChatId           : Long
           /* Unique identifier of the story that should be reposted */
           fromStoryId          : Int
           /* Period after which the story is moved to the archive, in 
@@ -7638,7 +7930,7 @@ namespace telegramium {
           user. Returns True on success.  */
         def restrictChatMember {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId                        : ChatId
           /* Unique identifier of the target user */
           userId                        : Long
@@ -7655,7 +7947,7 @@ namespace telegramium {
           /* Date when restrictions will be lifted for the user; Unix 
           time. If user is restricted for more than 366 days or less 
           than 30 seconds from the current time, they are considered 
-          to be restricted forever */
+          to be restricted forever. */
           untilDate                     : Option[Long]
         } => Method[Boolean]
       
@@ -7665,7 +7957,7 @@ namespace telegramium {
           administrator rights. Returns the revoked invite link as ChatInviteLink object.  */
         def revokeChatInviteLink {
           /* Unique identifier of the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId     : ChatId
           /* The invite link to revoke */
           inviteLink : String
@@ -7700,7 +7992,7 @@ namespace telegramium {
           userId : Long
           /* A JSON-serialized object describing the button to be saved. 
           The button must be of the type request_users, request_chat, 
-          or request_managed_bot */
+          or request_managed_bot. */
           button : KeyboardButton
         } => Method[PreparedKeyboardButton]
       
@@ -7712,7 +8004,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -7769,7 +8062,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -7783,7 +8076,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -7797,7 +8090,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -7846,7 +8140,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -7860,7 +8154,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -7874,7 +8168,7 @@ namespace telegramium {
           which the action will be sent */
           businessConnectionId : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername). 
+          target bot or supergroup in the format &#064;username. 
           Channel chats and channel direct messages chats aren't 
           supported. */
           chatId               : ChatId
@@ -7898,8 +8192,9 @@ namespace telegramium {
           /* Unique identifier of the business connection on behalf of 
           which the message will be sent */
           businessConnectionId : String
-          /* Unique identifier for the target chat */
-          chatId               : Long
+          /* Unique identifier for the target chat or username of the 
+          target bot in the format &#064;username */
+          chatId               : ChatId
           /* A JSON-serialized object for the checklist to send */
           checklist            : InputChecklist
           /* Sends the message silently. Users will receive a 
@@ -7925,7 +8220,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -7953,7 +8249,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -7967,7 +8263,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -7978,7 +8274,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -7992,7 +8289,7 @@ namespace telegramium {
           Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or 
           “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, 
           values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. 
-          Defaults to “🎲” */
+          Defaults to “🎲”. */
           emoji                   : Option[String]
           /* Sends the message silently. Users will receive a 
           notification with no sound. */
@@ -8002,7 +8299,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8016,7 +8313,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8028,7 +8325,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId        : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                      : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8074,7 +8372,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast          : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8088,7 +8386,7 @@ namespace telegramium {
           replyParameters             : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup                 : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8097,9 +8395,10 @@ namespace telegramium {
           /* Unique identifier of the business connection on behalf of 
           which the message will be sent */
           businessConnectionId : Option[String]
-          /* Unique identifier for the target chat. Games can't be sent 
+          /* Unique identifier for the target chat or username of the 
+          target bot in the format &#064;username. Games can't be sent 
           to channel direct messages chats and channel chats. */
-          chatId               : Long
+          chatId               : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
           with forum topic mode enabled only */
@@ -8116,7 +8415,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast   : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8137,7 +8436,7 @@ namespace telegramium {
           userId        : Option[Long]
           /* Required if user_id is not specified. Unique identifier for 
           the chat or username of the channel (in the format 
-          &#064;channelusername) that will receive the gift. */
+          &#064;username) that will receive the gift. */
           chatId        : Option[ChatId]
           /* Identifier of the gift; limited gifts can't be sent to 
           channel chats */
@@ -8164,7 +8463,8 @@ namespace telegramium {
         /* Use this method to send invoices. On success, the sent Message is returned.  */
         def sendInvoice {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                    : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8212,7 +8512,7 @@ namespace telegramium {
           using the same invoice. If non-empty, forwarded copies of 
           the sent message will have a URL button with a deep link to 
           the bot (instead of a Pay button), with the value used as 
-          the start parameter */
+          the start parameter. */
           startParameter            : Option[String]
           /* JSON-serialized data about the invoice, which will be 
           shared with the payment provider. A detailed description of 
@@ -8258,7 +8558,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast        : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8276,6 +8576,76 @@ namespace telegramium {
           replyMarkup               : Option[InlineKeyboardMarkup]
         } => Method[Message]
       
+        /* Use this method to send live photos. On success, the sent Message is returned.  */
+        def sendLivePhoto {
+          /* Unique identifier of the business connection on behalf of 
+          which the message will be sent */
+          businessConnectionId    : Option[String]
+          /* Unique identifier for the target chat or username of the 
+          target channel (in the format &#064;channelusername) */
+          chatId                  : ChatId
+          /* Unique identifier for the target message thread (topic) of 
+          a forum; for forum supergroups and private chats of bots 
+          with forum topic mode enabled only */
+          messageThreadId         : Option[Int]
+          /* Identifier of the direct messages topic to which the 
+          message will be sent; required if the message is sent to a 
+          direct messages chat */
+          directMessagesTopicId   : Option[Long]
+          /* Live photo video to send. The video must be no longer than 
+          10 seconds and must not exceed 10 MB in size. Pass a file_id 
+          as String to send a video that exists on the Telegram 
+          servers (recommended) or upload a new video using 
+          multipart/form-data. Sending live photos by a URL is 
+          currently unsupported. */
+          livePhoto               : (file) IFile
+          /* The static photo to send. Pass a file_id as String to send 
+          a photo that exists on the Telegram servers (recommended) or 
+          upload a new video using multipart/form-data. Sending live 
+          photos by a URL is currently unsupported. */
+          photo                   : (file) IFile
+          /* Video caption (may also be used when resending videos by 
+          file_id), 0-1024 characters after entities parsing */
+          caption                 : Option[String]
+          /* Mode for parsing entities in the video caption. See 
+          formatting options for more details. */
+          parseMode               : Option[ParseMode]
+          /* A JSON-serialized list of special entities that appear in 
+          the caption, which can be specified instead of parse_mode */
+          captionEntities         : List[MessageEntity]
+          /* Pass True, if the caption must be shown above the message 
+          media */
+          showCaptionAboveMedia   : Option[Boolean]
+          /* Pass True if the video needs to be covered with a spoiler 
+          animation */
+          hasSpoiler              : Option[Boolean]
+          /* Sends the message silently. Users will receive a 
+          notification with no sound. */
+          disableNotification     : Option[Boolean]
+          /* Protects the contents of the sent message from forwarding 
+          and saving */
+          protectContent          : Option[Boolean]
+          /* Pass True to allow up to 1000 messages per second, ignoring 
+          broadcasting limits for a fee of 0.1 Telegram Stars per 
+          message. The relevant Stars will be withdrawn from the bot's 
+          balance. */
+          allowPaidBroadcast      : Option[Boolean]
+          /* Unique identifier of the message effect to be added to the 
+          message; for private chats only */
+          messageEffectId         : Option[String]
+          /* A JSON-serialized object containing the parameters of the 
+          suggested post to send; for direct messages chats only. If 
+          the message is sent as a reply to another suggested post, 
+          then that suggested post is automatically declined. */
+          suggestedPostParameters : Option[SuggestedPostParameters]
+          /* Description of the message to reply to */
+          replyParameters         : Option[ReplyParameters]
+          /* Additional interface options. A JSON-serialized object for 
+          an inline keyboard, custom reply keyboard, instructions to 
+          remove a reply keyboard or to force a reply from the user. */
+          replyMarkup             : Option[KeyboardMarkup]
+        } => Method[Message]
+      
         /* Use this method to send point on the map. On success, the sent Message is 
           returned.  */
         def sendLocation {
@@ -8283,7 +8653,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8303,7 +8674,7 @@ namespace telegramium {
           /* Period in seconds during which the location will be updated 
           (see Live Locations, should be between 60 and 86400, or 
           0x7FFFFFFF for live locations that can be edited 
-          indefinitely. */
+          indefinitely */
           livePeriod              : Option[Int]
           /* For live locations, a direction in which the user is 
           moving, in degrees. Must be between 1 and 360 if specified. */
@@ -8321,7 +8692,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8335,20 +8706,21 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
-        /* Use this method to send a group of photos, videos, documents or audios as an 
-          album. Documents and audio files can be only grouped in an album with messages 
-          of the same type. On success, an array of Message objects that were sent is 
-          returned.  */
+        /* Use this method to send a group of photos, live photos, videos, documents or 
+          audios as an album. Documents and audio files can be only grouped in an album 
+          with messages of the same type. On success, an array of Message objects that 
+          were sent is returned.  */
         def sendMediaGroup {
           /* Unique identifier of the business connection on behalf of 
           which the message will be sent */
           businessConnectionId  : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8370,7 +8742,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast    : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8386,7 +8758,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8416,7 +8789,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8430,23 +8803,27 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
         /* Use this method to stream a partial message to a user while the message is 
-          being generated. Returns True on success.  */
+          being generated. Note that the streamed draft is ephemeral and acts as a 
+          temporary 30-second preview - once the output is finalized, you must call 
+          sendMessage with the complete message to persist it in the user's chat. Returns 
+          True on success.  */
         def sendMessageDraft {
           /* Unique identifier for the target private chat */
           chatId          : Long
           /* Unique identifier for the target message thread */
           messageThreadId : Option[Int]
           /* Unique identifier of the message draft; must be non-zero. 
-          Changes of drafts with the same identifier are animated */
+          Changes of drafts with the same identifier are animated. */
           draftId         : Int
-          /* Text of the message to be sent, 1-4096 characters after 
-          entities parsing */
-          text            : String
+          /* Text of the message to be sent, 0-4096 characters after 
+          entities parsing. Pass an empty text to show a “Thinking…” 
+          placeholder. */
+          text            : Option[String]
           /* Mode for parsing entities in the message text. See 
           formatting options for more details. */
           parseMode       : Option[ParseMode]
@@ -8461,10 +8838,11 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername). If the 
-          chat is a channel, all Telegram Star proceeds from this 
-          media will be credited to the chat's balance. Otherwise, 
-          they will be credited to the bot's balance. */
+          target bot, supergroup or channel in the format 
+          &#064;username. If the chat is a channel, all Telegram Star 
+          proceeds from this media will be credited to the chat's 
+          balance. Otherwise, they will be credited to the bot's 
+          balance. */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8504,7 +8882,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* A JSON-serialized object containing the parameters of the 
           suggested post to send; for direct messages chats only. If 
@@ -8515,7 +8893,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8525,7 +8903,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8567,7 +8946,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8581,7 +8960,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8592,8 +8971,9 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId   : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername). Polls 
-          can't be sent to channel direct messages chats. */
+          target bot, supergroup or channel in the format 
+          &#064;username. Polls can't be sent to channel direct 
+          messages chats. */
           chatId                 : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8603,13 +8983,13 @@ namespace telegramium {
           question               : String
           /* Mode for parsing entities in the question. See formatting 
           options for more details. Currently, only custom emoji 
-          entities are allowed */
+          entities are allowed. */
           questionParseMode      : Option[String]
           /* A JSON-serialized list of special entities that appear in 
           the poll question. It can be specified instead of 
-          question_parse_mode */
+          question_parse_mode. */
           questionEntities       : List[MessageEntity]
-          /* A JSON-serialized list of 2-12 answer options */
+          /* A JSON-serialized list of 1-12 answer options */
           options                : List[InputPollOption]
           /* True, if the poll needs to be anonymous, defaults to True */
           isAnonymous            : Option[Boolean]
@@ -8631,6 +9011,17 @@ namespace telegramium {
           /* Pass True, if poll results must be shown only after the 
           poll closes */
           hideResultsUntilCloses : Option[Boolean]
+          /* Pass True, if voting is limited to users who have been 
+          members of the chat where the poll is being sent for more 
+          than 24 hours; for channel chats only */
+          membersOnly            : Option[Boolean]
+          /* A JSON-serialized list of 0-12 two-letter ISO 3166-1 
+          alpha-2 country codes indicating the countries from which 
+          users can vote in the poll; for channel chats only. Use “FT” 
+          as a country code to allow users with anonymous numbers to 
+          vote. If omitted or empty, then users from any country can 
+          participate in the poll. */
+          countryCodes           : List[String]
           /* A JSON-serialized list of monotonically increasing 0-based 
           identifiers of the correct answer options, required for 
           polls in quiz mode */
@@ -8644,8 +9035,10 @@ namespace telegramium {
           explanationParseMode   : Option[ParseMode]
           /* A JSON-serialized list of special entities that appear in 
           the poll explanation. It can be specified instead of 
-          explanation_parse_mode */
+          explanation_parse_mode. */
           explanationEntities    : List[MessageEntity]
+          /* Media added to the quiz explanation */
+          explanationMedia       : Option[InputMedia]
           /* Amount of time in seconds the poll will be active after 
           creation, 5-2628000. Can't be used together with close_date. */
           openPeriod             : Option[Int]
@@ -8667,6 +9060,8 @@ namespace telegramium {
           the poll description, which can be specified instead of 
           description_parse_mode */
           descriptionEntities    : List[MessageEntity]
+          /* Media added to the poll description */
+          media                  : Option[InputMedia]
           /* Sends the message silently. Users will receive a 
           notification with no sound. */
           disableNotification    : Option[Boolean]
@@ -8676,7 +9071,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast     : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8685,7 +9080,7 @@ namespace telegramium {
           replyParameters        : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup            : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8696,7 +9091,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8725,7 +9121,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8739,7 +9135,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8750,7 +9146,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8787,7 +9184,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8801,7 +9198,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8814,7 +9211,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8880,7 +9278,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8894,7 +9292,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8906,7 +9304,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -8919,7 +9318,7 @@ namespace telegramium {
           /* Video note to send. Pass a file_id as String to send a 
           video note that exists on the Telegram servers (recommended) 
           or upload a new video using multipart/form-data. Sending 
-          video notes by a URL is currently unsupported */
+          video notes by a URL is currently unsupported. */
           videoNote               : (file) IFile
           /* Duration of sent video in seconds */
           duration                : Option[Int]
@@ -8944,7 +9343,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -8958,7 +9357,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -8973,7 +9372,8 @@ namespace telegramium {
           which the message will be sent */
           businessConnectionId    : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId                  : ChatId
           /* Unique identifier for the target message thread (topic) of 
           a forum; for forum supergroups and private chats of bots 
@@ -9008,7 +9408,7 @@ namespace telegramium {
           /* Pass True to allow up to 1000 messages per second, ignoring 
           broadcasting limits for a fee of 0.1 Telegram Stars per 
           message. The relevant Stars will be withdrawn from the bot's 
-          balance */
+          balance. */
           allowPaidBroadcast      : Option[Boolean]
           /* Unique identifier of the message effect to be added to the 
           message; for private chats only */
@@ -9022,7 +9422,7 @@ namespace telegramium {
           replyParameters         : Option[ReplyParameters]
           /* Additional interface options. A JSON-serialized object for 
           an inline keyboard, custom reply keyboard, instructions to 
-          remove a reply keyboard or to force a reply from the user */
+          remove a reply keyboard or to force a reply from the user. */
           replyMarkup             : Option[KeyboardMarkup]
         } => Method[Message]
       
@@ -9089,7 +9489,7 @@ namespace telegramium {
           promoted by the bot. Returns True on success.  */
         def setChatAdministratorCustomTitle {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId      : ChatId
           /* Unique identifier of the target user */
           userId      : Long
@@ -9103,7 +9503,7 @@ namespace telegramium {
           have the appropriate administrator rights. Returns True on success.  */
         def setChatDescription {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId      : ChatId
           /* New chat description, 0-255 characters */
           description : Option[String]
@@ -9114,7 +9514,7 @@ namespace telegramium {
           can_manage_tags administrator right. Returns True on success.  */
         def setChatMemberTag {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
           /* Unique identifier of the target user */
           userId : Long
@@ -9127,10 +9527,10 @@ namespace telegramium {
           default menu button. Returns True on success.  */
         def setChatMenuButton {
           /* Unique identifier for the target private chat. If not 
-          specified, default bot's menu button will be changed */
+          specified, the bot's default menu button will be changed. */
           chatId     : Option[Long]
           /* A JSON-serialized object for the bot's new menu button. 
-          Defaults to MenuButtonDefault */
+          Defaults to MenuButtonDefault. */
           menuButton : Option[MenuButton]
         } => Method[Boolean]
       
@@ -9139,7 +9539,7 @@ namespace telegramium {
           the can_restrict_members administrator rights. Returns True on success.  */
         def setChatPermissions {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId                        : ChatId
           /* A JSON-serialized object for new default chat permissions */
           permissions                   : ChatPermissions
@@ -9159,7 +9559,7 @@ namespace telegramium {
           success.  */
         def setChatPhoto {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
           /* New chat photo, uploaded using multipart/form-data */
           photo  : (file) IFile
@@ -9172,7 +9572,7 @@ namespace telegramium {
           success.  */
         def setChatStickerSet {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId         : ChatId
           /* Name of the sticker set to be set as the group sticker set */
           stickerSetName : String
@@ -9183,7 +9583,7 @@ namespace telegramium {
           must have the appropriate administrator rights. Returns True on success.  */
         def setChatTitle {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
           /* New chat title, 1-128 characters */
           title  : String
@@ -9196,7 +9596,7 @@ namespace telegramium {
           name          : String
           /* Custom emoji identifier of a sticker from the sticker set; 
           pass an empty string to drop the thumbnail and use the first 
-          sticker as the thumbnail. */
+          sticker as the thumbnail */
           customEmojiId : Option[String]
         } => Method[Boolean]
       
@@ -9210,21 +9610,36 @@ namespace telegramium {
           /* New score, must be non-negative */
           score              : Int
           /* Pass True if the high score is allowed to decrease. This 
-          can be useful when fixing mistakes or banning cheaters */
+          can be useful when fixing mistakes or banning cheaters. */
           force              : Option[Boolean]
           /* Pass True if the game message should not be automatically 
           edited to include the current scoreboard */
           disableEditMessage : Option[Boolean]
           /* Required if inline_message_id is not specified. Unique 
-          identifier for the target chat */
+          identifier for the target chat. */
           chatId             : Option[Long]
           /* Required if inline_message_id is not specified. Identifier 
-          of the sent message */
+          of the sent message. */
           messageId          : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId    : Option[String]
         } => Method[Either[Boolean, Message]]
+      
+        /* Use this method to change the access settings of a managed bot. Returns True on 
+          success.  */
+        def setManagedBotAccessSettings {
+          /* User identifier of the managed bot whose access settings 
+          will be changed */
+          userId             : Long
+          /* Pass True, if only selected users can access the bot. The 
+          bot's owner can always access it. */
+          isAccessRestricted : Boolean
+          /* A JSON-serialized list of up to 10 identifiers of users who 
+          will have access to the bot in addition to its owner. 
+          Ignored if is_access_restricted is false. */
+          addedUserIds       : List[Long]
+        } => Method[Boolean]
       
         /* Use this method to change the chosen reactions on a message. Service messages 
           of some types can't be reacted to. Automatically forwarded messages from a 
@@ -9232,7 +9647,8 @@ namespace telegramium {
           the channel. Bots can't use paid reactions. Returns True on success.  */
         def setMessageReaction {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId    : ChatId
           /* Identifier of the target message. If the message belongs to 
           a media group, the reaction is set to the first non-deleted 
@@ -9262,7 +9678,7 @@ namespace telegramium {
           scope        : Option[BotCommandScope]
           /* A two-letter ISO 639-1 language code. If empty, commands 
           will be applied to all users from the given scope, for whose 
-          language there are no dedicated commands */
+          language there are no dedicated commands. */
           languageCode : Option[String]
         } => Method[Boolean]
       
@@ -9445,7 +9861,7 @@ namespace telegramium {
           with the secret token as content.  */
         def setWebhook {
           /* HTTPS URL to send updates to. Use an empty string to remove 
-          webhook integration */
+          webhook integration. */
           url                : String
           /* Upload your public key certificate so that the root 
           certificate in use can be checked. See our self-signed guide 
@@ -9491,15 +9907,15 @@ namespace telegramium {
           businessConnectionId : Option[String]
           /* Required if inline_message_id is not specified. Unique 
           identifier for the target chat or username of the target 
-          channel (in the format &#064;channelusername) */
+          bot, supergroup or channel in the format &#064;username. */
           chatId               : Option[ChatId]
           /* Required if inline_message_id is not specified. Identifier 
-          of the message with live location to stop */
+          of the message with live location to stop. */
           messageId            : Option[Int]
           /* Required if chat_id and message_id are not specified. 
-          Identifier of the inline message */
+          Identifier of the inline message. */
           inlineMessageId      : Option[String]
-          /* A JSON-serialized object for a new inline keyboard. */
+          /* A JSON-serialized object for a new inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Either[Boolean, Message]]
       
@@ -9510,11 +9926,12 @@ namespace telegramium {
           which the message to be edited was sent */
           businessConnectionId : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target bot, supergroup or channel in the format 
+          &#064;username */
           chatId               : ChatId
           /* Identifier of the original message with the poll */
           messageId            : Int
-          /* A JSON-serialized object for a new message inline keyboard. */
+          /* A JSON-serialized object for a new message inline keyboard */
           replyMarkup          : Option[InlineKeyboardMarkup]
         } => Method[Poll]
       
@@ -9555,8 +9972,7 @@ namespace telegramium {
           parameter only_if_banned. Returns True on success.  */
         def unbanChatMember {
           /* Unique identifier for the target group or username of the 
-          target supergroup or channel (in the format 
-          &#064;channelusername) */
+          target supergroup or channel in the format &#064;username */
           chatId       : ChatId
           /* Unique identifier of the target user */
           userId       : Long
@@ -9569,7 +9985,7 @@ namespace telegramium {
           appropriate administrator rights. Returns True on success.  */
         def unbanChatSenderChat {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId       : ChatId
           /* Unique identifier of the target sender chat */
           senderChatId : Long
@@ -9580,7 +9996,7 @@ namespace telegramium {
           can_manage_topics administrator rights. Returns True on success.  */
         def unhideGeneralForumTopic {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -9591,7 +10007,7 @@ namespace telegramium {
           messages in groups and channels respectively. Returns True on success.  */
         def unpinAllChatMessages {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -9602,7 +10018,7 @@ namespace telegramium {
           success.  */
         def unpinAllForumTopicMessages {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId          : ChatId
           /* Unique identifier for the target message thread of the 
           forum topic */
@@ -9614,7 +10030,7 @@ namespace telegramium {
           can_pin_messages administrator right in the supergroup. Returns True on success.  */
         def unpinAllGeneralForumTopicMessages {
           /* Unique identifier for the target chat or username of the 
-          target supergroup (in the format &#064;supergroupusername) */
+          target supergroup in the format &#064;username */
           chatId : ChatId
         } => Method[Boolean]
       
@@ -9628,7 +10044,7 @@ namespace telegramium {
           which the message will be unpinned */
           businessConnectionId : Option[String]
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername) */
+          target channel in the format &#064;username */
           chatId               : ChatId
           /* Identifier of the message to unpin. Required if 
           business_connection_id is specified. If not specified, the 
@@ -9677,8 +10093,9 @@ namespace telegramium {
           Returns True on success.  */
         def verifyChat {
           /* Unique identifier for the target chat or username of the 
-          target channel (in the format &#064;channelusername). 
-          Channel direct messages chats can't be verified. */
+          target bot, supergroup or channel in the format 
+          &#064;username. Channel direct messages chats can't be 
+          verified. */
           chatId            : ChatId
           /* Custom description for the verification; 0-70 characters. 
           Must be empty if the organization isn't allowed to provide a 

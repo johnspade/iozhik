@@ -99,21 +99,22 @@ object ScalaApiGeneratorUtils {
     resultSet.toSet
   }
 
-  private def resolveCodKinds(kind: Kind)(implicit symt: Symtable): List[Kind] = {
+  private def resolveCodKinds(kind: Kind, seen: Set[Kind] = Set.empty)(implicit symt: Symtable): List[Kind] = {
+    if (seen.contains(kind)) return Nil
     kind :: kind.params ++ symt.resolve(kind).collect {
-      case s: Struc => resolveStrucKinds(s)
+      case s: Struc => resolveStrucKinds(s, seen + kind)
     }.toList.flatten
   }
 
-  private def resolveStrucKinds(s: Struc)(implicit symt: Symtable): List[Kind] = {
+  private def resolveStrucKinds(s: Struc, seen: Set[Kind] = Set.empty)(implicit symt: Symtable): List[Kind] = {
     val kinds = collection.mutable.ListBuffer[Kind]()
     s.kind.foreach(k => kinds += k)
-    s.kind.foreach(k => kinds ++= k.params.flatMap(resolveCodKinds))
-    kinds ++= s.fields.flatMap(f => resolveCodKinds(f.kind))
-    kinds ++= s.leaves.flatMap(l => l.kind.map(resolveCodKinds).toList.flatten)
-    kinds ++= s.embeds.flatMap(e => resolveCodKinds(Kind(e.name)))
-    kinds ++= s.wrapps.flatMap(w => resolveCodKinds(w.name))
-    kinds ++= s.enumstrs.flatMap(e => resolveCodKinds(e.name))
+    s.kind.foreach(k => kinds ++= k.params.flatMap(resolveCodKinds(_, seen)))
+    kinds ++= s.fields.flatMap(f => resolveCodKinds(f.kind, seen))
+    kinds ++= s.leaves.flatMap(l => l.kind.map(resolveCodKinds(_, seen)).toList.flatten)
+    kinds ++= s.embeds.flatMap(e => resolveCodKinds(Kind(e.name), seen))
+    kinds ++= s.wrapps.flatMap(w => resolveCodKinds(w.name, seen))
+    kinds ++= s.enumstrs.flatMap(e => resolveCodKinds(e.name, seen))
     kinds.toList
   }
 }

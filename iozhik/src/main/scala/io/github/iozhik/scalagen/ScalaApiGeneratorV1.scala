@@ -156,13 +156,22 @@ class ScalaApiGeneratorV1 {
           val wrappedName = if (useOpenEnums) wrapWithOpenEnum(name) else name
           val unknownCase = if (useOpenEnums) s"Decoder.const(iozhik.OpenEnum.Unknown[$name](unknown))" 
             else s"""throw iozhik.DecodingError(s"Unknown type for $name: $$unknown")"""
-          val encoder = s"""
+          val generatedEncoder = s"""
             |implicit lazy val ${name.toLowerCase}Encoder: Encoder[$name] = {
             |  ${cases.map(_._1).intercalate(d)}
             |}
           """.stripMargin
-          val decoder = if (isCodKind(struc)) {
-            meta.cfg.customDecoders.get(kind).getOrElse(s"""
+          val encoder = meta.cfg.customEncoders.get(kind).map { custom =>
+            val genName = s"${name.toLowerCase}GeneratedEncoder"
+            val gen = s"""
+              |private lazy val $genName: Encoder[$name] = {
+              |  ${cases.map(_._1).intercalate(d)}
+              |}
+            """.stripMargin
+            gen + d + custom
+          }.getOrElse(generatedEncoder)
+          val generatedDecoder = if (isCodKind(struc)) {
+            s"""
               |implicit lazy val ${name.toLowerCase}Decoder: Decoder[$wrappedName] = for {
               |  fType <- Decoder[String].prepare(_.downField($tag))
               |  value <- fType match {
@@ -170,7 +179,22 @@ class ScalaApiGeneratorV1 {
               |    case unknown => $unknownCase
               |  }
               |} yield value
-            """.stripMargin)
+            """.stripMargin
+          } else ""
+          val decoder = if (isCodKind(struc)) {
+            meta.cfg.customDecoders.get(kind).map { custom =>
+              val genName = s"${name.toLowerCase}GeneratedDecoder"
+              val gen = s"""
+                |private lazy val $genName: Decoder[$wrappedName] = for {
+                |  fType <- Decoder[String].prepare(_.downField($tag))
+                |  value <- fType match {
+                |    ${cases.map(_._2).intercalate(d)}
+                |    case unknown => $unknownCase
+                |  }
+                |} yield value
+              """.stripMargin
+              gen + d + custom
+            }.getOrElse(generatedDecoder)
           } else ""
           val body = encoder + d + decoder
           List(Code(body = body, packageObject = "CirceImplicits")) ++ items

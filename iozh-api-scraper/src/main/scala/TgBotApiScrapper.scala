@@ -200,14 +200,21 @@ object TgBotApiScrapper extends IOApp {
       .toList
     val inputMediaAliases = Set("InputPollMedia", "InputPollOptionMedia")
     val allSumtyps = items.collect{ case e: Sumtyp => e }
+    val allEntities = items.collect{ case e: Entity => e }
     val inputMediaSumtyp = allSumtyps.find(_.name == "InputMedia")
+    val standaloneInputMedia = allEntities
+      .filter(e => e.name.startsWith("InputMedia") && e.table.exists(_.kind == "__type_tag__"))
+      .map(_.name)
     val mergedInputMediaItems = inputMediaSumtyp.map { im =>
       val extraItems = allSumtyps
         .filter(s => inputMediaAliases.contains(s.name))
         .flatMap(_.items)
         .filterNot(im.items.contains)
         .distinct
-      im.copy(items = im.items ++ extraItems)
+      val extraStandalone = standaloneInputMedia
+        .filterNot(im.items.contains)
+        .filterNot(extraItems.contains)
+      im.copy(items = im.items ++ extraItems ++ extraStandalone)
     }
     val resolvedSumtyps = allSumtyps.map { s =>
       if (s.name == "InputMedia") mergedInputMediaItems.getOrElse(s)
@@ -227,13 +234,38 @@ object TgBotApiScrapper extends IOApp {
          """.stripMargin
         e.name -> body
       }.toMap
+    val richTextExtras = Map(
+      "RichTextPlain" ->
+        """
+          |  /* Plain text. */
+          |  RichTextPlain {
+          |    type : "plain:__type_id_placeholder__"
+          |    /* The text */
+          |    text : String
+          |  }
+        """.stripMargin,
+      "RichTextConcat" ->
+        """
+          |  /* Concatenation of rich texts. */
+          |  RichTextConcat {
+          |    type : "concat:__type_id_placeholder__"
+          |    /* The texts */
+          |    texts : List[RichText]
+          |  }
+        """.stripMargin
+    )
+    val richTextSumtyps = resolvedSumtyps.map { s =>
+      if (s.name == "RichText") s.copy(items = s.items ++ richTextExtras.keys.toList)
+      else s
+    }
+    val emapWithRichText = emap ++ richTextExtras
     val inlines = Set("InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply")
-    val leaves = (resolvedSumtyps.map(_.items) ++ messageEntityParent.map(_.items)).flatten.toSet ++ inlines
-    val sumTypes = (resolvedSumtyps ++ messageEntityParent)
+    val leaves = (richTextSumtyps.map(_.items) ++ messageEntityParent.map(_.items)).flatten.toSet ++ inlines
+    val sumTypes = (richTextSumtyps ++ messageEntityParent)
       .sortBy(_.name)
       .map { e =>
         val fields = genFields(e.table)
-        val children = emap.filterKeys{ k =>
+        val children = emapWithRichText.filterKeys{ k =>
             e.items.contains(k)
           }
           .values
@@ -248,7 +280,7 @@ object TgBotApiScrapper extends IOApp {
           |  }
         """.stripMargin
       }
-    val body = sumTypes.intercalate("") + emap.filterKeys(k => !leaves.contains(k)).toList.sortBy(_._1).map(_._2).intercalate("")
+    val body = sumTypes.intercalate("") + emapWithRichText.filterKeys(k => !leaves.contains(k)).toList.sortBy(_._1).map(_._2).intercalate("")
     val entities = body.split("\n").map("  " + _).toList.intercalate("\n")
     val methods = mmap.toList.sortBy(_._1).map(_._2).flatMap(_.split("\n")).map("      " + _).intercalate("\n")
     val markups = emap.filterKeys(inlines.contains).values.toList
@@ -368,6 +400,7 @@ object TgBotApiScrapper extends IOApp {
             .replace("InputMediaAudio, InputMediaDocument, InputMediaLivePhoto, InputMediaPhoto and InputMediaVideo", "InputMedia")
             .replace("InputPollOptionMedia", "InputMedia")
             .replace("InputPollMedia", "InputMedia")
+            .replace("InputMediaAnimation or InputMediaAudio or InputMediaPhoto or InputMediaVideo or InputMediaVoiceNote", "InputMedia")
         }
       }
 

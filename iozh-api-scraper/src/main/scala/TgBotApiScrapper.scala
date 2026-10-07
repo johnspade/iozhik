@@ -374,6 +374,7 @@ object TgBotApiScrapper extends IOApp {
           descText.contains("size in bytes") ||
           descText.contains("Unix time") ||
           name == "user_id" ||
+          name == "receiver_user_id" ||
           name == "chat_id" ||
           name == "sender_chat_id" ||
           name == "new_owner_chat_id" ||

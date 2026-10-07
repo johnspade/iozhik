@@ -4664,7 +4664,7 @@ namespace telegramium {
       /* Identifier of the user who will receive the message. It is 
       not guaranteed that the user will receive the message, 
       especially if they are offline. See here for more details. */
-      receiverUserId              : Int
+      receiverUserId              : Long
       /* Optional. Identifier of the callback query which triggered 
       the message, if any */
       callbackQueryId             : Option[String]
@@ -7852,7 +7852,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to delete */
           ephemeralMessageId : Int
         } => Method[Boolean]
@@ -8012,7 +8012,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId                : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId        : Int
+          receiverUserId        : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId    : Int
           /* New caption of the message, 0-1024 characters after 
@@ -8040,7 +8040,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* A JSON-serialized object for the new media content of the 
@@ -8058,7 +8058,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* A JSON-serialized object for an inline keyboard */
@@ -8073,7 +8073,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* New text of the message, 1-4096 characters after entity 

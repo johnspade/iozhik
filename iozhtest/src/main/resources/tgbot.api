@@ -1169,8 +1169,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media                 : IFile
         /* Optional. Thumbnail of the file sent; can be ignored if 
         thumbnail generation for the file is supported server-side. 
@@ -1179,8 +1180,9 @@ namespace telegramium {
         320. Ignored if the file is not uploaded using 
         multipart/form-data. Thumbnails can't be reused and can be 
         only uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the thumbnail was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         thumbnail             : Option[IFile]
         /* Optional. Caption of the animation to be sent, 0-1024 
         characters after entities parsing */
@@ -1218,8 +1220,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        "attach://<file_attach_name>" to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        "attach://&lt;file_attach_name&gt;" to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media           : IFile
         /* Optional. Caption of the voice message to be sent, 0-1024 
         characters after entities parsing */
@@ -1240,8 +1243,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media                 : IFile
         /* Optional. Caption of the photo to be sent, 0-1024 
         characters after entities parsing */
@@ -1266,8 +1270,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media                 : IFile
         /* Optional. Thumbnail of the file sent; can be ignored if 
         thumbnail generation for the file is supported server-side. 
@@ -1276,15 +1281,17 @@ namespace telegramium {
         320. Ignored if the file is not uploaded using 
         multipart/form-data. Thumbnails can't be reused and can be 
         only uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the thumbnail was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         thumbnail             : Option[IFile]
         /* Optional. Cover for the video in the message. Pass a 
         file_id to send a file that exists on the Telegram servers 
         (recommended), pass an HTTP URL for Telegram to get a file 
-        from the Internet, or pass “attach://<file_attach_name>” to 
-        upload a new one using multipart/form-data under 
-        <file_attach_name> name. */
+        from the Internet, or pass 
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         cover                 : Option[IFile]
         /* Optional. Start timestamp for the video in the message */
         startTimestamp        : Option[Int]
@@ -1319,15 +1326,15 @@ namespace telegramium {
         type : "live_photo:6"
         /* Video of the live photo to send. Pass a file_id to send a 
         file that exists on the Telegram servers (recommended) or 
-        pass “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. Sending 
-        live photos by a URL is currently unsupported. */
+        pass “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. Sending live photos by a URL is currently unsupported. */
         media                 : IFile
         /* The static photo to send. Pass a file_id to send a file 
         that exists on the Telegram servers (recommended) or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. Sending 
-        live photos by a URL is currently unsupported. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. Sending live photos by a URL is currently unsupported. */
         photo                 : IFile
         /* Optional. Caption of the live photo to be sent, 0-1024 
         characters after entities parsing */
@@ -1376,8 +1383,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media                       : IFile
         /* Optional. Thumbnail of the file sent; can be ignored if 
         thumbnail generation for the file is supported server-side. 
@@ -1386,8 +1394,9 @@ namespace telegramium {
         320. Ignored if the file is not uploaded using 
         multipart/form-data. Thumbnails can't be reused and can be 
         only uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the thumbnail was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         thumbnail                   : Option[IFile]
         /* Optional. Caption of the document to be sent, 0-1024 
         characters after entities parsing */
@@ -1410,9 +1419,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a .WEBP sticker from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new .WEBP, .TGS, 
-        or .WEBM sticker using multipart/form-data under 
-        <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new .WEBP, 
+        .TGS, or .WEBM sticker using multipart/form-data under 
+        &lt;file_attach_name&gt; name. */
         media : IFile
         /* Optional. Emoji associated with the sticker; only for just 
         uploaded stickers */
@@ -1425,8 +1434,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media           : IFile
         /* Optional. Thumbnail of the file sent; can be ignored if 
         thumbnail generation for the file is supported server-side. 
@@ -1435,8 +1445,9 @@ namespace telegramium {
         320. Ignored if the file is not uploaded using 
         multipart/form-data. Thumbnails can't be reused and can be 
         only uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the thumbnail was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         thumbnail       : Option[IFile]
         /* Optional. Caption of the audio to be sent, 0-1024 
         characters after entities parsing */
@@ -1634,8 +1645,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media : IFile
       }
              
@@ -1644,15 +1656,15 @@ namespace telegramium {
         type : "live_photo:1"
         /* Video of the live photo to send. Pass a file_id to send a 
         file that exists on the Telegram servers (recommended) or 
-        pass “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. Sending 
-        live photos by a URL is currently unsupported. */
+        pass “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. Sending live photos by a URL is currently unsupported. */
         media : IFile
         /* The static photo to send. Pass a file_id to send a file 
         that exists on the Telegram servers (recommended) or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. Sending 
-        live photos by a URL is currently unsupported. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. Sending live photos by a URL is currently unsupported. */
         photo : IFile
       }
              
@@ -1662,8 +1674,9 @@ namespace telegramium {
         /* File to send. Pass a file_id to send a file that exists on 
         the Telegram servers (recommended), pass an HTTP URL for 
         Telegram to get a file from the Internet, or pass 
-        “attach://<file_attach_name>” to upload a new one using 
-        multipart/form-data under <file_attach_name> name. */
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         media             : IFile
         /* Optional. Thumbnail of the file sent; can be ignored if 
         thumbnail generation for the file is supported server-side. 
@@ -1672,15 +1685,17 @@ namespace telegramium {
         320. Ignored if the file is not uploaded using 
         multipart/form-data. Thumbnails can't be reused and can be 
         only uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the thumbnail was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         thumbnail         : Option[IFile]
         /* Optional. Cover for the video in the message. Pass a 
         file_id to send a file that exists on the Telegram servers 
         (recommended), pass an HTTP URL for Telegram to get a file 
-        from the Internet, or pass “attach://<file_attach_name>” to 
-        upload a new one using multipart/form-data under 
-        <file_attach_name> name. */
+        from the Internet, or pass 
+        “attach://&lt;file_attach_name&gt;” to upload a new one 
+        using multipart/form-data under &lt;file_attach_name&gt; 
+        name. */
         cover             : Option[IFile]
         /* Optional. Start timestamp for the video in the message */
         startTimestamp    : Option[Int]
@@ -1704,8 +1719,9 @@ namespace telegramium {
         type : "animated:0"
         /* The animated profile photo. Profile photos can't be reused 
         and can only be uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the photo was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the photo was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         animation          : IFile
         /* Optional. Timestamp in seconds of the frame that will be 
         used as the static profile photo. Defaults to 0.0. */
@@ -1717,8 +1733,9 @@ namespace telegramium {
         type : "static:1"
         /* The static profile photo. Profile photos can't be reused 
         and can only be uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the photo was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the photo was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         photo : IFile
       }
              
@@ -1726,7 +1743,7 @@ namespace telegramium {
           
     enum InputRichBlock {
     
-      /* A table, corresponding to the HTML tag <table>.  */
+      /* A table, corresponding to the HTML tag &lt;table&gt;.  */
       InputRichBlockTable {
         type : "table:0"
         /* Cells of the table */
@@ -1742,15 +1759,15 @@ namespace telegramium {
         caption    : Option[RichText]
       }
              
-      /* A block with an anchor, corresponding to the HTML tag <a> with the attribute 
-        name.  */
+      /* A block with an anchor, corresponding to the HTML tag &lt;a&gt; with the 
+        attribute name.  */
       InputRichBlockAnchor {
         type : "anchor:1"
         /* The name of the anchor */
         name : String
       }
              
-      /* A block with a voice note, corresponding to the HTML tag <audio>.  */
+      /* A block with a voice note, corresponding to the HTML tag &lt;audio&gt;.  */
       InputRichBlockVoiceNote {
         type : "voice_note:2"
         /* The voice note. Caption is ignored. */
@@ -1759,23 +1776,23 @@ namespace telegramium {
         caption   : Option[RichBlockCaption]
       }
              
-      /* A list of blocks, corresponding to the HTML tag <ul> or <ol> with multiple 
-        nested tags <li>.  */
+      /* A list of blocks, corresponding to the HTML tag &lt;ul&gt; or &lt;ol&gt; with 
+        multiple nested tags &lt;li&gt;.  */
       InputRichBlockList {
         type : "list:3"
         /* Items of the list */
         items : List[InputRichBlockListItem]
       }
              
-      /* A text paragraph, corresponding to the HTML tag <p>.  */
+      /* A text paragraph, corresponding to the HTML tag &lt;p&gt;.  */
       InputRichBlockParagraph {
         type : "paragraph:4"
         /* Text of the block */
         text : RichText
       }
              
-      /* A preformatted text block, corresponding to the nested HTML tags <pre> and 
-        <code>.  */
+      /* A preformatted text block, corresponding to the nested HTML tags &lt;pre&gt; 
+        and &lt;code&gt;.  */
       InputRichBlockPreformatted {
         type : "pre:5"
         /* Text of the block */
@@ -1784,7 +1801,7 @@ namespace telegramium {
         language : Option[String]
       }
              
-      /* A block with a music file, corresponding to the HTML tag <audio>.  */
+      /* A block with a music file, corresponding to the HTML tag &lt;audio&gt;.  */
       InputRichBlockAudio {
         type : "audio:6"
         /* The audio. Caption is ignored. */
@@ -1793,7 +1810,7 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A block quotation, corresponding to the HTML tag <blockquote> with custom 
+      /* A block quotation, corresponding to the HTML tag &lt;blockquote&gt; with custom 
         attribute "expandable".  */
       InputRichBlockExpandableBlockQuotation {
         type : "expandable_blockquote:7"
@@ -1803,7 +1820,7 @@ namespace telegramium {
         credit : Option[RichText]
       }
              
-      /* A collage, corresponding to the custom HTML tag <tg-collage>.  */
+      /* A collage, corresponding to the custom HTML tag &lt;tg-collage&gt;.  */
       InputRichBlockCollage {
         type : "collage:8"
         /* Elements of the collage */
@@ -1812,7 +1829,7 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A footer, corresponding to the HTML tag <footer>.  */
+      /* A footer, corresponding to the HTML tag &lt;footer&gt;.  */
       InputRichBlockFooter {
         type : "footer:9"
         /* Text of the block */
@@ -1820,7 +1837,7 @@ namespace telegramium {
       }
              
       /* A block with a general file, corresponding to the custom HTML tag 
-        <tg-document>.  */
+        &lt;tg-document&gt;.  */
       InputRichBlockDocument {
         type : "document:10"
         /* The document. Caption is ignored. */
@@ -1830,19 +1847,19 @@ namespace telegramium {
       }
              
       /* A block with a mathematical expression in LaTeX format, corresponding to the 
-        custom HTML tag <tg-math-block>.  */
+        custom HTML tag &lt;tg-math-block&gt;.  */
       InputRichBlockMathematicalExpression {
         type : "mathematical_expression:11"
         /* The mathematical expression in LaTeX format */
         expression : String
       }
              
-      /* A divider, corresponding to the HTML tag <hr/>.  */
+      /* A divider, corresponding to the HTML tag &lt;hr/&gt;.  */
       InputRichBlockDivider {
         type : "divider:12"
       }
              
-      /* A block quotation, corresponding to the HTML tag <blockquote>.  */
+      /* A block quotation, corresponding to the HTML tag &lt;blockquote&gt;.  */
       InputRichBlockBlockQuotation {
         type : "blockquote:13"
         /* Content of the block */
@@ -1852,9 +1869,9 @@ namespace telegramium {
       }
              
       /* A block with a “Thinking…” placeholder, corresponding to the custom HTML tag 
-        <tg-thinking>. The block may be used only in sendRichMessageDraft, therefore it 
-        can't be received in messages. See https://t.me/addemoji/AIActions for examples 
-        of custom emoji that are recommended for usage in the block.  */
+        &lt;tg-thinking&gt;. The block may be used only in sendRichMessageDraft, 
+        therefore it can't be received in messages. See https://t.me/addemoji/AIActions 
+        for examples of custom emoji that are recommended for usage in the block.  */
       InputRichBlockThinking {
         type : "thinking:14"
         /* Text of the block. See https://t.me/addemoji/AIActions for 
@@ -1863,9 +1880,9 @@ namespace telegramium {
         text : RichText
       }
              
-      /* A block with a map, corresponding to the custom HTML tag <tg-map>. The map's 
-        width and height must not exceed 10000 in total. The width and height ratio must 
-        be at most 20.  */
+      /* A block with a map, corresponding to the custom HTML tag &lt;tg-map&gt;. The 
+        map's width and height must not exceed 10000 in total. The width and height 
+        ratio must be at most 20.  */
       InputRichBlockMap {
         type : "map:15"
         /* Location of the center of the map */
@@ -1880,7 +1897,7 @@ namespace telegramium {
         caption  : Option[RichBlockCaption]
       }
              
-      /* A slideshow, corresponding to the custom HTML tag <tg-slideshow>.  */
+      /* A slideshow, corresponding to the custom HTML tag &lt;tg-slideshow&gt;.  */
       InputRichBlockSlideshow {
         type : "slideshow:16"
         /* Elements of the slideshow */
@@ -1889,7 +1906,7 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A block with a photo, corresponding to the HTML tag <img>.  */
+      /* A block with a photo, corresponding to the HTML tag &lt;img&gt;.  */
       InputRichBlockPhoto {
         type : "photo:17"
         /* The photo. Caption is ignored. */
@@ -1898,7 +1915,7 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A block with an animation, corresponding to the HTML tag <video>.  */
+      /* A block with an animation, corresponding to the HTML tag &lt;video&gt;.  */
       InputRichBlockAnimation {
         type : "animation:18"
         /* The animation. Caption is ignored. */
@@ -1907,8 +1924,8 @@ namespace telegramium {
         caption   : Option[RichBlockCaption]
       }
              
-      /* A section heading, corresponding to the HTML tags <h1>, <h2>, <h3>, <h4>, <h5>, 
-        or <h6>.  */
+      /* A section heading, corresponding to the HTML tags &lt;h1&gt;, &lt;h2&gt;, 
+        &lt;h3&gt;, &lt;h4&gt;, &lt;h5&gt;, or &lt;h6&gt;.  */
       InputRichBlockSectionHeading {
         type : "heading:19"
         /* Text of the block */
@@ -1919,7 +1936,7 @@ namespace telegramium {
       }
              
       /* An expandable block for details disclosure, corresponding to the HTML tag 
-        <details>.  */
+        &lt;details&gt;.  */
       InputRichBlockDetails {
         type : "details:20"
         /* Always shown summary of the block */
@@ -1932,7 +1949,7 @@ namespace telegramium {
       }
              
       /* A block containing a list of buttons that are shown in one row, corresponding 
-        to the custom HTML tag <tg-button-row>.  */
+        to the custom HTML tag &lt;tg-button-row&gt;.  */
       InputRichBlockButtons {
         type : "buttons:21"
         /* List of 1-8 buttons to send */
@@ -1942,7 +1959,7 @@ namespace telegramium {
         align   : Option[String]
       }
              
-      /* A block with a video, corresponding to the HTML tag <video>.  */
+      /* A block with a video, corresponding to the HTML tag &lt;video&gt;.  */
       InputRichBlockVideo {
         type : "video:22"
         /* The video. Caption is ignored. */
@@ -1951,7 +1968,8 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A quotation with centered text, loosely corresponding to the HTML tag <aside>.  */
+      /* A quotation with centered text, loosely corresponding to the HTML tag 
+        &lt;aside&gt;.  */
       InputRichBlockPullQuotation {
         type : "pullquote:23"
         /* Text of the block */
@@ -1970,8 +1988,9 @@ namespace telegramium {
         /* The photo to post as a story. The photo must be of the size 
         1080x1920 and must not exceed 10 MB. The photo can't be 
         reused and can only be uploaded as a new file, so you can 
-        pass “attach://<file_attach_name>” if the photo was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        pass “attach://&lt;file_attach_name&gt;” if the photo was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         photo : IFile
       }
              
@@ -1983,8 +2002,9 @@ namespace telegramium {
         frames added each second in the MPEG4 format, and must not 
         exceed 30 MB. The video can't be reused and can only be 
         uploaded as a new file, so you can pass 
-        “attach://<file_attach_name>” if the video was uploaded 
-        using multipart/form-data under <file_attach_name>. */
+        “attach://&lt;file_attach_name&gt;” if the video was 
+        uploaded using multipart/form-data under 
+        &lt;file_attach_name&gt;. */
         video               : IFile
         /* Optional. Precise duration of the video in seconds; 0-60 */
         duration            : Option[Float]
@@ -2908,7 +2928,7 @@ namespace telegramium {
           
     enum RichBlock {
     
-      /* A block with a video, corresponding to the HTML tag <video>.  */
+      /* A block with a video, corresponding to the HTML tag &lt;video&gt;.  */
       RichBlockVideo {
         type : "video:0"
         /* The video */
@@ -2921,7 +2941,7 @@ namespace telegramium {
       }
              
       /* An expandable block for details disclosure, corresponding to the HTML tag 
-        <details>.  */
+        &lt;details&gt;.  */
       RichBlockDetails {
         type : "details:1"
         /* Always shown summary of the block */
@@ -2933,15 +2953,15 @@ namespace telegramium {
         isOpen  : Option[Boolean]
       }
              
-      /* A list of blocks, corresponding to the HTML tag <ul> or <ol> with multiple 
-        nested tags <li>.  */
+      /* A list of blocks, corresponding to the HTML tag &lt;ul&gt; or &lt;ol&gt; with 
+        multiple nested tags &lt;li&gt;.  */
       RichBlockList {
         type : "list:2"
         /* Items of the list */
         items : List[RichBlockListItem]
       }
              
-      /* A block with a photo, corresponding to the HTML tag <img>.  */
+      /* A block with a photo, corresponding to the HTML tag &lt;img&gt;.  */
       RichBlockPhoto {
         type : "photo:3"
         /* Available sizes of the photo */
@@ -2954,9 +2974,9 @@ namespace telegramium {
       }
              
       /* A block with a “Thinking…” placeholder, corresponding to the custom HTML tag 
-        <tg-thinking>. The block may be used only in sendRichMessageDraft, therefore it 
-        can't be received in messages. See https://t.me/addemoji/AIActions for examples 
-        of custom emoji that are recommended for usage in the block.  */
+        &lt;tg-thinking&gt;. The block may be used only in sendRichMessageDraft, 
+        therefore it can't be received in messages. See https://t.me/addemoji/AIActions 
+        for examples of custom emoji that are recommended for usage in the block.  */
       RichBlockThinking {
         type : "thinking:4"
         /* Text of the block. See https://t.me/addemoji/AIActions for 
@@ -2965,15 +2985,15 @@ namespace telegramium {
         text : RichText
       }
              
-      /* A footer, corresponding to the HTML tag <footer>.  */
+      /* A footer, corresponding to the HTML tag &lt;footer&gt;.  */
       RichBlockFooter {
         type : "footer:5"
         /* Text of the block */
         text : RichText
       }
              
-      /* A block with an anchor, corresponding to the HTML tag <a> with the attribute 
-        name.  */
+      /* A block with an anchor, corresponding to the HTML tag &lt;a&gt; with the 
+        attribute name.  */
       RichBlockAnchor {
         type : "anchor:6"
         /* The name of the anchor */
@@ -2981,7 +3001,7 @@ namespace telegramium {
       }
              
       /* A block with a general file, corresponding to the custom HTML tag 
-        <tg-document>.  */
+        &lt;tg-document&gt;.  */
       RichBlockDocument {
         type : "document:7"
         /* The document */
@@ -2991,14 +3011,14 @@ namespace telegramium {
       }
              
       /* A block with a mathematical expression in LaTeX format, corresponding to the 
-        custom HTML tag <tg-math-block>.  */
+        custom HTML tag &lt;tg-math-block&gt;.  */
       RichBlockMathematicalExpression {
         type : "mathematical_expression:8"
         /* The mathematical expression in LaTeX format */
         expression : String
       }
              
-      /* A block quotation, corresponding to the HTML tag <blockquote>.  */
+      /* A block quotation, corresponding to the HTML tag &lt;blockquote&gt;.  */
       RichBlockBlockQuotation {
         type : "blockquote:9"
         /* Content of the block */
@@ -3007,7 +3027,7 @@ namespace telegramium {
         credit : Option[RichText]
       }
              
-      /* A block with a map, corresponding to the custom HTML tag <tg-map>.  */
+      /* A block with a map, corresponding to the custom HTML tag &lt;tg-map&gt;.  */
       RichBlockMap {
         type : "map:10"
         /* Location of the center of the map */
@@ -3022,7 +3042,7 @@ namespace telegramium {
         caption  : Option[RichBlockCaption]
       }
              
-      /* A slideshow, corresponding to the custom HTML tag <tg-slideshow>.  */
+      /* A slideshow, corresponding to the custom HTML tag &lt;tg-slideshow&gt;.  */
       RichBlockSlideshow {
         type : "slideshow:11"
         /* Elements of the slideshow */
@@ -3031,14 +3051,15 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A text paragraph, corresponding to the HTML tag <p>.  */
+      /* A text paragraph, corresponding to the HTML tag &lt;p&gt;.  */
       RichBlockParagraph {
         type : "paragraph:12"
         /* Text of the block */
         text : RichText
       }
              
-      /* A quotation with centered text, loosely corresponding to the HTML tag <aside>.  */
+      /* A quotation with centered text, loosely corresponding to the HTML tag 
+        &lt;aside&gt;.  */
       RichBlockPullQuotation {
         type : "pullquote:13"
         /* Text of the block */
@@ -3047,8 +3068,8 @@ namespace telegramium {
         credit : Option[RichText]
       }
              
-      /* A preformatted text block, corresponding to the nested HTML tags <pre> and 
-        <code>.  */
+      /* A preformatted text block, corresponding to the nested HTML tags &lt;pre&gt; 
+        and &lt;code&gt;.  */
       RichBlockPreformatted {
         type : "pre:14"
         /* Text of the block */
@@ -3057,7 +3078,7 @@ namespace telegramium {
         language : Option[String]
       }
              
-      /* A table, corresponding to the HTML tag <table>.  */
+      /* A table, corresponding to the HTML tag &lt;table&gt;.  */
       RichBlockTable {
         type : "table:15"
         /* Cells of the table */
@@ -3072,7 +3093,7 @@ namespace telegramium {
         caption    : Option[RichText]
       }
              
-      /* A collage, corresponding to the custom HTML tag <tg-collage>.  */
+      /* A collage, corresponding to the custom HTML tag &lt;tg-collage&gt;.  */
       RichBlockCollage {
         type : "collage:16"
         /* Elements of the collage */
@@ -3081,7 +3102,7 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A block with a music file, corresponding to the HTML tag <audio>.  */
+      /* A block with a music file, corresponding to the HTML tag &lt;audio&gt;.  */
       RichBlockAudio {
         type : "audio:17"
         /* The audio */
@@ -3090,12 +3111,12 @@ namespace telegramium {
         caption : Option[RichBlockCaption]
       }
              
-      /* A divider, corresponding to the HTML tag <hr/>.  */
+      /* A divider, corresponding to the HTML tag &lt;hr/&gt;.  */
       RichBlockDivider {
         type : "divider:18"
       }
              
-      /* A block with an animation, corresponding to the HTML tag <video>.  */
+      /* A block with an animation, corresponding to the HTML tag &lt;video&gt;.  */
       RichBlockAnimation {
         type : "animation:19"
         /* The animation */
@@ -3107,7 +3128,7 @@ namespace telegramium {
         caption    : Option[RichBlockCaption]
       }
              
-      /* A block quotation, corresponding to the HTML tag <blockquote> with custom 
+      /* A block quotation, corresponding to the HTML tag &lt;blockquote&gt; with custom 
         attribute "expandable".  */
       RichBlockExpandableBlockQuotation {
         type : "expandable_blockquote:20"
@@ -3117,8 +3138,8 @@ namespace telegramium {
         credit : Option[RichText]
       }
              
-      /* A section heading, corresponding to the HTML tags <h1>, <h2>, <h3>, <h4>, <h5>, 
-        or <h6>.  */
+      /* A section heading, corresponding to the HTML tags &lt;h1&gt;, &lt;h2&gt;, 
+        &lt;h3&gt;, &lt;h4&gt;, &lt;h5&gt;, or &lt;h6&gt;.  */
       RichBlockSectionHeading {
         type : "heading:21"
         /* Text of the block */
@@ -3129,7 +3150,7 @@ namespace telegramium {
       }
              
       /* A block containing a list of buttons that are shown in one row, corresponding 
-        to the custom HTML tag <tg-button-row>.  */
+        to the custom HTML tag &lt;tg-button-row&gt;.  */
       RichBlockButtons {
         type : "buttons:22"
         /* The buttons */
@@ -3139,7 +3160,7 @@ namespace telegramium {
         align   : Option[String]
       }
              
-      /* A block with a voice note, corresponding to the HTML tag <audio>.  */
+      /* A block with a voice note, corresponding to the HTML tag &lt;audio&gt;.  */
       RichBlockVoiceNote {
         type : "voice_note:23"
         /* The voice note */
@@ -4075,8 +4096,8 @@ namespace telegramium {
       /* Optional. Bio of the other party in a private chat */
       bio                                : Option[String]
       /* Optional. True, if privacy settings of the other party in 
-      the private chat allows to use tg://user?id=<user_id> links 
-      only in chats with the user */
+      the private chat allows to use tg://user?id=&lt;user_id&gt; 
+      links only in chats with the user */
       hasPrivateForwards                 : Option[Boolean]
       /* Optional. True, if the privacy settings of the other party 
       restrict sending voice and video note messages in the 
@@ -4664,7 +4685,7 @@ namespace telegramium {
       /* Identifier of the user who will receive the message. It is 
       not guaranteed that the user will receive the message, 
       especially if they are offline. See here for more details. */
-      receiverUserId              : Int
+      receiverUserId              : Long
       /* Optional. Identifier of the callback query which triggered 
       the message, if any */
       callbackQueryId             : Option[String]
@@ -4751,8 +4772,9 @@ namespace telegramium {
     }
            
     /* This object represents a file ready to be downloaded. The file can be 
-      downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It 
-      is guaranteed that the link will be valid for at least 1 hour. When the link 
+      downloaded via the link 
+      https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;. It is 
+      guaranteed that the link will be valid for at least 1 hour. When the link 
       expires, a new one can be requested by calling getFile.  */
     File {
       /* Identifier for this file, which can be used to download or 
@@ -4769,8 +4791,8 @@ namespace telegramium {
       double-precision float type are safe for storing this value. */
       fileSize     : Option[Long]
       /* Optional. File path. Use 
-      https://api.telegram.org/file/bot<token>/<file_path> to get 
-      the file. */
+      https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt; 
+      to get the file. */
       filePath     : Option[String]
     }
            
@@ -5076,9 +5098,9 @@ namespace telegramium {
       then an app-specific style is used. */
       style                        : Option[String]
       /* Optional. HTTP or tg:// URL to be opened when the button is 
-      pressed. Links tg://user?id=<user_id> can be used to mention 
-      a user by their identifier without using a username, if this 
-      is allowed by their privacy settings. */
+      pressed. Links tg://user?id=&lt;user_id&gt; can be used to 
+      mention a user by their identifier without using a username, 
+      if this is allowed by their privacy settings. */
       url                          : Option[String]
       /* Optional. Data to be sent in a callback query to the bot 
       when the button is pressed, 1-64 bytes */
@@ -5312,10 +5334,10 @@ namespace telegramium {
       /* The added sticker. Pass a file_id as a String to send a 
       file that already exists on the Telegram servers, pass an 
       HTTP URL as a String for Telegram to get a file from the 
-      Internet, or pass “attach://<file_attach_name>” to upload a 
-      new file using multipart/form-data under <file_attach_name> 
-      name. Animated and video stickers can't be uploaded via HTTP 
-      URL. */
+      Internet, or pass “attach://&lt;file_attach_name&gt;” to 
+      upload a new file using multipart/form-data under 
+      &lt;file_attach_name&gt; name. Animated and video stickers 
+      can't be uploaded via HTTP URL. */
       sticker      : IFile
       /* Format of the added sticker, must be one of “static” for a 
       .WEBP or .PNG image, “animated” for a .TGS animation, 
@@ -6145,7 +6167,7 @@ namespace telegramium {
       /* Block caption */
       text   : RichText
       /* Optional. Block credit which corresponds to the HTML tag 
-      <cite> */
+      &lt;cite&gt; */
       credit : Option[RichText]
     }
            
@@ -6213,9 +6235,9 @@ namespace telegramium {
       buttons. */
       style                        : Option[String]
       /* Optional. HTTP or tg:// URL to be opened when the button is 
-      pressed. Links tg://user?id=<user_id> can be used to mention 
-      a user by their identifier without using a username, if this 
-      is allowed by their privacy settings. */
+      pressed. Links tg://user?id=&lt;user_id&gt; can be used to 
+      mention a user by their identifier without using a username, 
+      if this is allowed by their privacy settings. */
       url                          : Option[String]
       /* Optional. Data to be sent in a callback query to the bot 
       when the button is pressed, 1-64 bytes */
@@ -7750,8 +7772,8 @@ namespace telegramium {
           URLs (e.g., animals). Can contain only English letters, 
           digits and underscores. Must begin with a letter, can't 
           contain consecutive underscores and must end in 
-          "_by_<bot_username>". <bot_username> is case insensitive. 
-          1-64 characters. */
+          "_by_&lt;bot_username&gt;". &lt;bot_username&gt; is case 
+          insensitive. 1-64 characters. */
           name            : String
           /* Sticker set title, 1-64 characters */
           title           : String
@@ -7852,7 +7874,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to delete */
           ephemeralMessageId : Int
         } => Method[Boolean]
@@ -8012,7 +8034,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId                : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId        : Int
+          receiverUserId        : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId    : Int
           /* New caption of the message, 0-1024 characters after 
@@ -8040,7 +8062,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* A JSON-serialized object for the new media content of the 
@@ -8058,7 +8080,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* A JSON-serialized object for an inline keyboard */
@@ -8073,7 +8095,7 @@ namespace telegramium {
           target supergroup in the format &#064;username */
           chatId             : ChatId
           /* Identifier of the user who received the message */
-          receiverUserId     : Int
+          receiverUserId     : Long
           /* Identifier of the ephemeral message to edit */
           ephemeralMessageId : Int
           /* New text of the message, 1-4096 characters after entity 
@@ -8594,10 +8616,10 @@ namespace telegramium {
         /* Use this method to get basic information about a file and prepare it for 
           downloading. For the moment, bots can download files of up to 20MB in size. On 
           success, a File object is returned. The file can then be downloaded via the link 
-          https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken 
-          from the response. It is guaranteed that the link will be valid for at least 1 
-          hour. When the link expires, a new one can be requested by calling getFile 
-          again.  */
+          https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where 
+          &lt;file_path&gt; is taken from the response. It is guaranteed that the link 
+          will be valid for at least 1 hour. When the link expires, a new one can be 
+          requested by calling getFile again.  */
         def getFile {
           /* File identifier to get information about */
           fileId : String
@@ -9253,8 +9275,9 @@ namespace telegramium {
           Ignored if the file is not uploaded using 
           multipart/form-data. Thumbnails can't be reused and can be 
           only uploaded as a new file, so you can pass 
-          “attach://<file_attach_name>” if the thumbnail was uploaded 
-          using multipart/form-data under <file_attach_name>. */
+          “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+          uploaded using multipart/form-data under 
+          &lt;file_attach_name&gt;. */
           thumbnail                  : (file) Option[IFile]
           /* Animation caption (may also be used when resending 
           animation by file_id), 0-1024 characters after entities 
@@ -9350,8 +9373,9 @@ namespace telegramium {
           Ignored if the file is not uploaded using 
           multipart/form-data. Thumbnails can't be reused and can be 
           only uploaded as a new file, so you can pass 
-          “attach://<file_attach_name>” if the thumbnail was uploaded 
-          using multipart/form-data under <file_attach_name>. */
+          “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+          uploaded using multipart/form-data under 
+          &lt;file_attach_name&gt;. */
           thumbnail                  : (file) Option[IFile]
           /* Sends the message silently. Users will receive a 
           notification with no sound. */
@@ -9588,8 +9612,9 @@ namespace telegramium {
           Ignored if the file is not uploaded using 
           multipart/form-data. Thumbnails can't be reused and can be 
           only uploaded as a new file, so you can pass 
-          “attach://<file_attach_name>” if the thumbnail was uploaded 
-          using multipart/form-data under <file_attach_name>. */
+          “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+          uploaded using multipart/form-data under 
+          &lt;file_attach_name&gt;. */
           thumbnail                   : (file) Option[IFile]
           /* Document caption (may also be used when resending documents 
           by file_id), 0-1024 characters after entities parsing */
@@ -10591,15 +10616,16 @@ namespace telegramium {
           Ignored if the file is not uploaded using 
           multipart/form-data. Thumbnails can't be reused and can be 
           only uploaded as a new file, so you can pass 
-          “attach://<file_attach_name>” if the thumbnail was uploaded 
-          using multipart/form-data under <file_attach_name>. */
+          “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+          uploaded using multipart/form-data under 
+          &lt;file_attach_name&gt;. */
           thumbnail                  : (file) Option[IFile]
           /* Cover for the video in the message. Pass a file_id to send 
           a file that exists on the Telegram servers (recommended), 
           pass an HTTP URL for Telegram to get a file from the 
-          Internet, or pass “attach://<file_attach_name>” to upload a 
-          new one using multipart/form-data under <file_attach_name> 
-          name. */
+          Internet, or pass “attach://&lt;file_attach_name&gt;” to 
+          upload a new one using multipart/form-data under 
+          &lt;file_attach_name&gt; name. */
           cover                      : (file) Option[IFile]
           /* Start timestamp for the video in the message */
           startTimestamp             : Option[Int]
@@ -10684,8 +10710,9 @@ namespace telegramium {
           Ignored if the file is not uploaded using 
           multipart/form-data. Thumbnails can't be reused and can be 
           only uploaded as a new file, so you can pass 
-          “attach://<file_attach_name>” if the thumbnail was uploaded 
-          using multipart/form-data under <file_attach_name>. */
+          “attach://&lt;file_attach_name&gt;” if the thumbnail was 
+          uploaded using multipart/form-data under 
+          &lt;file_attach_name&gt;. */
           thumbnail                  : (file) Option[IFile]
           /* Sends the message silently. Users will receive a 
           notification with no sound. */
@@ -11424,9 +11451,9 @@ namespace telegramium {
           keepOriginalDetails  : Option[Boolean]
           /* The amount of Telegram Stars that will be paid for the 
           upgrade from the business account balance. If 
-          gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, 
-          the can_transfer_stars business bot right is required and 
-          gift.upgrade_star_count must be passed. */
+          gift.prepaid_upgrade_star_count &gt; 0, then pass 0, 
+          otherwise, the can_transfer_stars business bot right is 
+          required and gift.upgrade_star_count must be passed. */
           starCount            : Option[Int]
         } => Method[Boolean]
       

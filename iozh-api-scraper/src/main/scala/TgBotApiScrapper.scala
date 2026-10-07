@@ -34,6 +34,9 @@ object TgBotApiScrapper extends IOApp {
       val text = source.map(_.text).intercalate("\n")
       val links = source.flatMap(_ >> elements("a")).map(e => Link(e.text, e.attr("href")))
       val cleanedText = removeLearnMoreLinks(text, links)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
         .replace("@", "&#064;")
         .replace("^", "&#94;")
       Desc(source, cleanedText, links)
@@ -374,6 +377,7 @@ object TgBotApiScrapper extends IOApp {
           descText.contains("size in bytes") ||
           descText.contains("Unix time") ||
           name == "user_id" ||
+          name == "receiver_user_id" ||
           name == "chat_id" ||
           name == "sender_chat_id" ||
           name == "new_owner_chat_id" ||
@@ -465,7 +469,7 @@ object TgBotApiScrapper extends IOApp {
             }
             Method(
               name = x.name.text,
-              desc = x.desc.map(_.text).intercalate("\n"),
+              desc = Desc(x.desc).text,
               table = params.map { y =>
                 val k = y.children.toList(1).text
                 val name = y.children.toList.head.text
@@ -521,7 +525,7 @@ object TgBotApiScrapper extends IOApp {
             val items = x.items >> elements("li")
             Sumtyp(
               name = x.name.text,
-              desc = x.desc.text,
+              desc = Desc(x.desc).text,
               items = items
                 .map(_.text)
                 .toList
